@@ -53,8 +53,6 @@ int		ft_cd(char **args);
 int		is_builtin(t_data *data, int i);
 void	exec_builtin(t_data *data, int i);
 
-
-
 /*===========================redirections.c===============================*/
 
 int		redir_input(t_data *data, int i, int prev_fd);
@@ -65,11 +63,8 @@ int		redir_output(t_data *data, int i, int tab_size, int *fds);
 char	*skip_redir_symbol(char *token_file, bool direction);
 int		arrow_count(char *str, char c);
 
-
 /*===========================exec_handler.c===============================*/
 
 static int		exec_handler(int i, t_data *data);
-
-
 
 #endif
