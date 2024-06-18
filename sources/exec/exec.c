@@ -6,54 +6,31 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/17 13:26:59 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/18 09:38:07 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-// int	is_builtin(t_data *data, int i)
-// {
-// 	// if (ft_strcmp(data[i].args.tab[0], "echo") == 0)
-// 	// 	return (1);
-// 	if (ft_strcmp(data[i].args.tab[0], "cd") == 0)
-// 		return (1);
-// 	// if (ft_strcmp(data[i].args.tab[0], "pwd") == 0)
-// 	// 	return (1);
-// 	// if (ft_strcmp(data[i].args.tab[0], "export") == 0)
-// 	// 	return (1);
-// 	// if (ft_strcmp(data[i].args.tab[0], "unset") == 0)
-// 	// 	return (1);
-// 	// if (ft_strcmp(data[i].args.tab[0], "env") == 0)
-// 	// 	return (1);
-// 	if (ft_strcmp(data[i].args.tab[0], "exit") == 0)
-// 		return (1);
-// 	return (0);
-// }
-
-// void	exec_builtin(t_data *data, int i)
-// {
-// 	if (ft_strcmp(data[i].args.tab[0], "exit") == 0)
-// 		ft_exit();
-// 	if (ft_strcmp(data[i].args.tab[0], "cd") == 0)
-// 		ft_cd(data[i].args.tab);
-// }
-
-// int	format_cmd_path()
-// {
-// 	char *directory;
-// 	char *cmd_path;
-
-	
-// }
-
-static int	exec_handler(int i, t_data *data)
+static char *format_exec_path(t_data *data, int i)
 {
 	char	*directory;
 	char	*cmd_path;
+	directory = check_all_dirs(data[i].args.tab[0]);
+	if (!directory && !(is_builtin(data, i)))
+		return (NULL);
+	cmd_path = ft_concat_path(directory, data[i].args.tab[0]);
+	if (!cmd_path)
+		return (free(directory), NULL);
+	return (cmd_path);
+}
 
+static int	exec_handler(int i, t_data *data)
+{
+	char	*cmd_path;
 	if (!data || !data[i].args.tab)
 		return (-1);
+	// Expand ??
 	if (is_builtin(data, i))
 	{
 		if (redir_output(data, i, 0, NULL) == -1)
@@ -63,14 +40,14 @@ static int	exec_handler(int i, t_data *data)
 	}
 	else
 	{
-		directory = check_all_dirs(data[i].args.tab[0]);
-		if (!directory && !(is_builtin(data, i)))
-			return (perror("Command not found"), -1);
-		cmd_path = ft_concat_path(directory, data[i].args.tab[0]);
-		if (!cmd_path)
-			return (free(directory), -1);
-		if (execve(cmd_path, data[i].args.tab, data[i].env.tab) == -1)
-			return (perror("execve failed"), free(cmd_path), -1);
+		cmd_path = format_exec_path(data, i);
+		if (cmd_path != NULL)
+		{
+			if (execve(cmd_path, data[i].args.tab, data[i].env.tab) == -1)
+				return (perror("execve failed"), free(cmd_path), -1);	
+		}
+		else
+			  return (perror("Command not found"), -1);
 	}
 	return (0);
 }
@@ -109,7 +86,7 @@ int	exec(t_data *data,int tab_size)
 	while (i < tab_size)
 	{
 		
-
+		
 
 
 
