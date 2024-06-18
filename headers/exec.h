@@ -42,6 +42,7 @@ int		ft_strcmp(char *s1, char *s2);
 void	free_array(char **array);
 void	wait_all(int tab_size);
 int		ft_perror(char *err_message);
+char	*format_exec_path(t_data *data, int i);
 
 /*===========================builtins.c===============================*/
 

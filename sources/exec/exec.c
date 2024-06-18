@@ -6,24 +6,13 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/18 09:38:07 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:17:31 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static char *format_exec_path(t_data *data, int i)
-{
-	char	*directory;
-	char	*cmd_path;
-	directory = check_all_dirs(data[i].args.tab[0]);
-	if (!directory && !(is_builtin(data, i)))
-		return (NULL);
-	cmd_path = ft_concat_path(directory, data[i].args.tab[0]);
-	if (!cmd_path)
-		return (free(directory), NULL);
-	return (cmd_path);
-}
+
 
 static int	exec_handler(int i, t_data *data)
 {
