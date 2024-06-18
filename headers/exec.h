@@ -68,4 +68,8 @@ int		arrow_count(char *str, char c);
 
 static int		exec_handler(int i, t_data *data);
 
+
+int				expand_management(t_data *data, char **envp);
+
+
 #endif

@@ -6,20 +6,20 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/18 10:17:31 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:32:35 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-
+#include "expand.h"
 
 static int	exec_handler(int i, t_data *data)
 {
 	char	*cmd_path;
+
 	if (!data || !data[i].args.tab)
 		return (-1);
-	// Expand ??
+	//expand_management(data, data->env.tab); ??
 	if (is_builtin(data, i))
 	{
 		if (redir_output(data, i, 0, NULL) == -1)
@@ -33,10 +33,10 @@ static int	exec_handler(int i, t_data *data)
 		if (cmd_path != NULL)
 		{
 			if (execve(cmd_path, data[i].args.tab, data[i].env.tab) == -1)
-				return (perror("execve failed"), free(cmd_path), -1);	
+				return (perror("execve failed"), free(cmd_path), -1);
 		}
 		else
-			  return (perror("Command not found"), -1);
+			return (perror("Command not found"), -1);
 	}
 	return (0);
 }
@@ -63,7 +63,7 @@ static void	handle_parent(int i, int *fds, int prev_fd)
 	close(fds[1]);
 }
 
-int	exec(t_data *data,int tab_size)
+int	exec(t_data *data, int tab_size)
 {
 	int		i;
 	int		prev_fd;
@@ -74,13 +74,6 @@ int	exec(t_data *data,int tab_size)
 	i = 0;
 	while (i < tab_size)
 	{
-		
-		
-
-
-
-		
-		
 		if (pipe(fds) == -1)
 			return (perror("Pipe failed"), -1);
 		pid = fork();

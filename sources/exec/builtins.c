@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/18 09:22:04 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:13:16 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,24 @@
 // int ft_cd(char **args);
 // int ft_export(char **args);
 // int ft_unset(char **args);
-// int ft_env(char **env);
 // int ft_exit(void);
+// int ft_env(char **env);
+// int	ft_pwd(void);
 
 int	ft_exit(void)
 {
 	printf("exit function executed\n");
+	
 	exit(0);
 }
+
+// int	ft_env(char **env)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (env[i])
+// }
 
 int	ft_cd(char **args)
 {
@@ -31,13 +41,10 @@ int	ft_cd(char **args)
 		return (ft_perror("No arguments to cd\n"), -1);
 	else
 	{
-		ft_printf("This is my own cmd CD\n");;
+		ft_printf("This is my own cmd CD\n");
 		if (chdir(args[1]) != 0)
 			perror("cd");
 	}
 	return (0);
 }
-// int	ft_pwd(void)
-// {
-	
-// }
+

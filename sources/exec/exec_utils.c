@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 08:59:06 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/18 10:17:53 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:32:53 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	wait_all(int tab_size)
 	}
 }
 
-char *format_exec_path(t_data *data, int i)
+char	*format_exec_path(t_data *data, int i)
 {
 	char	*directory;
 	char	*cmd_path;
-	
+
 	directory = check_all_dirs(data[i].args.tab[0]);
 	if (!directory && !(is_builtin(data, i)))
 		return (NULL);
