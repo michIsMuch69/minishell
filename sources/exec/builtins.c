@@ -6,7 +6,7 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/18 16:25:10 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/06/18 16:34:55 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 void ft_exit(int status)
 {
-    if (isatty(fileno(stdin)))
+    if (isatty(STDIN_FILENO))
 	{
-        printf("Closing terminal...\n");
+        printf("Close terminal\n");
         kill(0, SIGHUP);
     }
     exit(status);
