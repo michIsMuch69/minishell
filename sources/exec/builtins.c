@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/18 11:13:16 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:25:10 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@
 // int ft_env(char **env);
 // int	ft_pwd(void);
 
-int	ft_exit(void)
+void ft_exit(int status)
 {
-	printf("exit function executed\n");
-	
-	exit(0);
+    if (isatty(fileno(stdin)))
+	{
+        printf("Closing terminal...\n");
+        kill(0, SIGHUP);
+    }
+    exit(status);
 }
 
 // int	ft_env(char **env)

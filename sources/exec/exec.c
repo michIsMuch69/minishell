@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/18 10:32:35 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:09:20 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "expand.h"
 
-static int	exec_handler(int i, t_data *data)
+int	exec_handler(int i, t_data *data)
 {
 	char	*cmd_path;
 
@@ -61,6 +61,7 @@ static void	handle_parent(int i, int *fds, int prev_fd)
 	if (i > 0)
 		close(prev_fd);
 	close(fds[1]);
+
 }
 
 int	exec(t_data *data, int tab_size)
@@ -84,7 +85,8 @@ int	exec(t_data *data, int tab_size)
 		else
 		{
 			handle_parent(i, fds, prev_fd);
-			prev_fd = fds[0];
+				prev_fd = fds[0];
+			
 		}
 		i++;
 	}

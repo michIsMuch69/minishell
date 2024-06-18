@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_utils.c                                    :+:      :+:    :+:   */
+/*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:46:50 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/17 10:47:14 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:18:33 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	is_builtin(t_data *data, int i)
 void	exec_builtin(t_data *data, int i)
 {
 	if (ft_strcmp(data[i].args.tab[0], "exit") == 0)
-		ft_exit();
+	{
+		int status = 0;
+		ft_exit(status);
+	}
 	if (ft_strcmp(data[i].args.tab[0], "cd") == 0)
 		ft_cd(data[i].args.tab);
 }

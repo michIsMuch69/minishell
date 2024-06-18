@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:58:11 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/17 13:22:29 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:06:19 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	print_tab(t_table tab)
 void	print_struct(t_data *data, int tab_size)
 {
 	int	i = 0;
-	int	y = 0;
+	//int	y = 0;
 	
 	while (i < tab_size)
 	{
 		printf("\nSTRUC %d\n\n", i+1);
 		printf("cmd  = %s\n", data[i].cmd_path);
-		y = 0;
+		//y = 0;
 		if (data[i].args.tab)
 		{
 			printf("args list :\n");
