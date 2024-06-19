@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/18 11:13:16 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/19 08:12:56 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	ft_exit(void)
 
 int	ft_cd(char **args)
 {
+	// retour racine
 	if (args[1] == NULL)
 		return (ft_perror("No arguments to cd\n"), -1);
 	else

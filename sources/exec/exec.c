@@ -6,14 +6,14 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/18 10:32:35 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/19 08:13:57 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "expand.h"
 
-static int	exec_handler(int i, t_data *data)
+int	exec_handler(int i, t_data *data)
 {
 	char	*cmd_path;
 
