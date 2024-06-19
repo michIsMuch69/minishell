@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/06/19 08:13:57 by jedusser         ###   ########.fr       */
+=======
+/*   Updated: 2024/06/18 16:09:20 by jean-michel      ###   ########.fr       */
+>>>>>>> gh_minishell/exec
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +65,7 @@ static void	handle_parent(int i, int *fds, int prev_fd)
 	if (i > 0)
 		close(prev_fd);
 	close(fds[1]);
+
 }
 
 int	exec(t_data *data, int tab_size)
@@ -84,7 +89,8 @@ int	exec(t_data *data, int tab_size)
 		else
 		{
 			handle_parent(i, fds, prev_fd);
-			prev_fd = fds[0];
+				prev_fd = fds[0];
+			
 		}
 		i++;
 	}

@@ -27,6 +27,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdbool.h>
+#include <signal.h>
 
 void	print_tab(t_table tab);
 void	print_struct(t_data *data, int tab_size);
@@ -46,7 +47,7 @@ char	*format_exec_path(t_data *data, int i);
 
 /*===========================builtins.c===============================*/
 
-int		ft_exit(void);
+void    ft_exit(int status);
 int		ft_cd(char **args);
 
 /*===========================builtins_utils.c===============================*/

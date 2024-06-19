@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/06/19 08:12:56 by jedusser         ###   ########.fr       */
+=======
+/*   Updated: 2024/06/18 16:34:55 by jean-michel      ###   ########.fr       */
+>>>>>>> gh_minishell/exec
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +24,14 @@
 // int ft_env(char **env);
 // int	ft_pwd(void);
 
-int	ft_exit(void)
+void ft_exit(int status)
 {
-	printf("exit function executed\n");
-	
-	exit(0);
+    if (isatty(STDIN_FILENO))
+	{
+        printf("Close terminal\n");
+        kill(0, SIGHUP);
+    }
+    exit(status);
 }
 
 // int	ft_env(char **env)
