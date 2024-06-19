@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/06/19 08:12:56 by jedusser         ###   ########.fr       */
-=======
-/*   Updated: 2024/06/18 16:34:55 by jean-michel      ###   ########.fr       */
->>>>>>> gh_minishell/exec
+/*   Updated: 2024/06/19 12:18:03 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +20,49 @@
 // int ft_env(char **env);
 // int	ft_pwd(void);
 
-void ft_exit(int status)
+void	close_term(void)
 {
-    if (isatty(STDIN_FILENO))
+	if (isatty(STDIN_FILENO))
 	{
-        printf("Close terminal\n");
-        kill(0, SIGHUP);
-    }
-    exit(status);
+		printf("Close terminal\n");
+		kill(0, SIGHUP);
+	}
+}
+
+int	ft_is_number(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] <= '0' || str[i] >= '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	ft_exit(t_data *data, int i)
+{
+	int	exit_status;
+	
+	exit_status = EXIT_FAILURE;
+
+	if (data[i].args.size > 2)
+	{
+		exit_status = 126;
+		return (ft_perror("exit: too many arguments\n"), exit_status);
+	}
+	if (ft_is_number(data[i].args.tab[1]) == 0)
+	{
+		//ft_printf("its not a num !");
+		exit_status = 128;
+		return (ft_perror("numeric argument required\n"), exit_status);
+
+	}
+	// close_term(); 
+    return (exit_status);
 }
 
 // int	ft_env(char **env)
@@ -46,13 +77,13 @@ int	ft_cd(char **args)
 {
 	// retour racine
 	if (args[1] == NULL)
-		return (ft_perror("No arguments to cd\n"), -1);
+		return (ft_perror("No arguments to cd\n"), EXIT_FAILURE);
 	else
 	{
 		ft_printf("This is my own cmd CD\n");
 		if (chdir(args[1]) != 0)
 			perror("cd");
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/06/19 08:13:57 by jedusser         ###   ########.fr       */
-=======
-/*   Updated: 2024/06/18 16:09:20 by jean-michel      ###   ########.fr       */
->>>>>>> gh_minishell/exec
+/*   Updated: 2024/06/19 09:28:31 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +34,13 @@ int	exec_handler(int i, t_data *data)
 		{
 			if (execve(cmd_path, data[i].args.tab, data[i].env.tab) == -1)
 				return (perror("execve failed"), free(cmd_path), -1);
+			// I must check the exit_status of /usr/bin cmds;
+			
 		}
 		else
 			return (perror("Command not found"), -1);
 	}
-	return (0);
+	return (0); 
 }
 
 static int	handle_child(int i, int *fds, int tab_size, int prev_fd, t_data *data)

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 09:14:53 by jedusser          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/06/19 08:14:11 by jedusser         ###   ########.fr       */
-=======
-/*   Updated: 2024/06/18 16:08:19 by jean-michel      ###   ########.fr       */
->>>>>>> gh_minishell/exec
+/*   Updated: 2024/06/19 08:38:25 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +25,7 @@ int	arrow_count(char *str, char c)
 char	*skip_redir_symbol(char *token_file, bool direction)
 {
 	char	*file;
-<<<<<<< HEAD
-=======
 	//int		i;
->>>>>>> gh_minishell/exec
 	int		tok_nb;
 	int		size;
 

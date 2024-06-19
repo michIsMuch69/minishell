@@ -47,13 +47,13 @@ char	*format_exec_path(t_data *data, int i);
 
 /*===========================builtins.c===============================*/
 
-void    ft_exit(int status);
+int		ft_exit(t_data *data, int i);
 int		ft_cd(char **args);
 
 /*===========================builtins_utils.c===============================*/
 
 int		is_builtin(t_data *data, int i);
-void	exec_builtin(t_data *data, int i);
+int		exec_builtin(t_data *data, int i);
 
 /*===========================redirections.c===============================*/
 

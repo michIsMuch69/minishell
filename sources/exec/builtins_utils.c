@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:46:50 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/18 16:18:33 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/06/19 11:37:24 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,19 @@ int	is_builtin(t_data *data, int i)
 	return (0);
 }
 
-void	exec_builtin(t_data *data, int i)
+int	exec_builtin(t_data *data, int i)
 {
+	int	exit_status = EXIT_FAILURE;
 	if (ft_strcmp(data[i].args.tab[0], "exit") == 0)
 	{
-		int status = 0;
-		ft_exit(status);
-	}
+		exit_status = ft_exit(data, i);
+		ft_printf("exit status is : %d\n", exit_status);
+
+		
+	}	
 	if (ft_strcmp(data[i].args.tab[0], "cd") == 0)
-		ft_cd(data[i].args.tab);
+	{
+		exit_status = ft_cd(data[i].args.tab);	
+	}
+	return (exit_status);
 }
