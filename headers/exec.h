@@ -47,7 +47,7 @@ char	*format_exec_path(t_data *data, int i);
 
 /*===========================builtins.c===============================*/
 
-int		ft_exit(t_data *data, int i);
+int		ft_exit(t_data *data);
 int		ft_cd(char **args);
 
 /*===========================builtins_utils.c===============================*/

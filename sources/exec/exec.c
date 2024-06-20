@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/19 09:28:31 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:19:51 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	exec_handler(int i, t_data *data)
 	//expand_management(data, data->env.tab); ??
 	if (is_builtin(data, i))
 	{
-		if (redir_output(data, i, 0, NULL) == -1)
-			return (-1);
+		// if (redir_output(data, i, 0, NULL) == -1)
+		// 	return (-1);
 		exec_builtin(data, i);
 		return (0);
 	}
@@ -87,7 +87,7 @@ int	exec(t_data *data, int tab_size)
 		else
 		{
 			handle_parent(i, fds, prev_fd);
-				prev_fd = fds[0];
+			prev_fd = fds[0];
 			
 		}
 		i++;
