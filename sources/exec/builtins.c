@@ -6,7 +6,7 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/26 15:31:16 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/06/26 15:58:52 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int ft_pwd(void)
     }
 	else
 	{
-        handle_error("my pwd", errno); // Use handle_error to set last_exit_code
+        handle_error("my pwd", errno);// sets the last exit code 
         return (1);
     }
 }
@@ -72,7 +72,7 @@ int ft_cd(char **args)
     }
 	if (chdir(args[1]) == -1)
 	{
-		handle_error("my cd", errno); 
+		handle_error("my cd : args[1]", errno); 
 		return (1);
 	}
     return (0); 

@@ -1,0 +1,9 @@
+Makefile
+README.md
+file
+file2.txt
+headers
+libft
+minishell
+run.sh
+sources
