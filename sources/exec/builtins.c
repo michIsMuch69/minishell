@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/18 16:34:55 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/06/26 10:04:45 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,66 @@
 // int ft_cd(char **args);
 // int ft_export(char **args);
 // int ft_unset(char **args);
-// int ft_exit(void);
 // int ft_env(char **env);
-// int	ft_pwd(void);
+// int ft_exit(void);
 
-void ft_exit(int status)
+void ft_exit(char **args)
 {
-    if (isatty(STDIN_FILENO))
+	int exit_code;
+
+	if (args[1])
 	{
-        printf("Close terminal\n");
-        kill(0, SIGHUP);
-    }
-    exit(status);
+		exit_code = atoi(args[1]);
+	}
+	else
+	{
+		exit_code = last_exit_code;
+	}
+	// Cleanup et exit
+	printf("Exiting shell with code: %d\n", exit_code);
+	exit(exit_code);
 }
 
-// int	ft_env(char **env)
-// {
-// 	int	i;
+int ft_pwd(void)
+{
+	char cwd[1024];
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	{
+		printf("my own pwd result : %s\n", cwd);
+		return 33;
+	}
+	else
+	{
+		perror("pwd");
+		return 1;
+	}
+}
 
-// 	i = 0;
-// 	while (env[i])
-// }
+int ft_env(char **env)
+{
+	int	i;
 
+	i = 0;
+	while (env[i] != NULL)
+	{
+		printf("%s\\n", env[i]);
+		i++;
+	}
+	return 0;
+}
 int	ft_cd(char **args)
 {
 	if (args[1] == NULL)
 		return (ft_perror("No arguments to cd\n"), -1);
 	else
 	{
-		ft_printf("This is my own cmd CD\n");
-		if (chdir(args[1]) != 0)
-			perror("cd");
+		ft_printf("This is my own cmd CD\n");;
+			if (chdir(args[1]) != 0)
+				perror("cd");
 	}
 	return (0);
 }
+// int	ft_pwd(void)
+// {
 
+// }
