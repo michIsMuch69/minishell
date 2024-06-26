@@ -3,13 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:58:11 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/18 16:06:19 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/06/26 09:38:13 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+/*
+Pour configurer Visual Studio Code (VS Code) afin que le raccourci Ctrl + Clic redirige vers la définition d’une fonction, voici les étapes à suivre :
+
+    Ouvrez VS Code.
+    Appuyez sur Ctrl + K suivi de Ctrl + S (ou Cmd + K suivi de Cmd + S sur Mac) pour accéder à la fenêtre des raccourcis clavier.
+    Recherchez l’option “Preferences: Open Settings (JSON)” et cliquez dessus.
+    Dans le fichier keybindings.json, vous pouvez personnaliser vos raccourcis clavier. Cherchez la combinaison de touches
+    que vous souhaitez utiliser pour rediriger vers la définition d’une fonction.
+    Ajoutez votre raccourci personnalisé en utilisant le format JSON, par exemple :
+
+	{
+    "key": "ctrl+click",
+    "command": "editor.action.goToDeclaration"
+	}
+	Dans cet exemple, ctrl+click est la combinaison de touches pour rediriger vers la définition.
+	N’oubliez pas de sauvegarder vos modifications. Désormais, lorsque vous cliquerez tout en maintenant la touche Ctrl,
+  VS Code vous dirigera vers la définition de la fonction. 🚀
+
+*/
 
 // ###### INCLUDES ######
 
@@ -28,7 +48,7 @@ int		ft_perror(char *err_message);
 int		parse_prompt(char **prompt, char **envp, t_data **data);
 void	free_struct(t_data *struc, int tab_size);
 void	free_tab(t_table *tab, int start);
-int		exec(t_data *data, int tab_size);
+int		exec(int tab_size, t_data *data);
 
 void	print_tab(t_table tab);
 
@@ -52,13 +72,13 @@ void	print_tab(t_table tab)
 void	print_struct(t_data *data, int tab_size)
 {
 	int	i = 0;
-	//int	y = 0;
-	
+	int	y = 0;
+
 	while (i < tab_size)
 	{
 		printf("\nSTRUC %d\n\n", i+1);
 		printf("cmd  = %s\n", data[i].cmd_path);
-		//y = 0;
+		y = 0;
 		if (data[i].args.tab)
 		{
 			printf("args list :\n");
@@ -160,16 +180,17 @@ int main (int argc, char **argv, char **envp)
 		add_history(prompt); // !! need to clear history
 		tab_size = parse_prompt(&prompt, data->env.tab, &data);
 		if (tab_size == -1)
-			return (free_struct(data, 1), /*free(prompt),*/ 4);
+			return (free_struct(data, 1), 4);
 		if (tab_size)
-			exec(data, tab_size);
+      		if (exec(tab_size, data) == -1)
+			  return (free_struct(data, 1), free(prompt), 5);
 		// if (++index == 4)
 		// 	return (free(prompt), free_struct(data, tab_size), 0);
-		free(prompt);
+		if (prompt)
+      	free(prompt);
 		data = reset_env(data, tab_size);
 		if (!data)
 			return (5);
 	}
 	return (0);
 }
-

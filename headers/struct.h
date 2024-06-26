@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:16:08 by fberthou          #+#    #+#             */
-/*   Updated: 2024/06/17 11:47:19 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/06/24 10:23:30 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ typedef struct s_data
 {
 	enum e_rtype	cmd_type;
 	char			*cmd_path;
-	t_table			args;
-	t_table			env;
-	t_table			input;
-	t_table			output;
+	t_table	  		args;
+	t_table		  	env;
+	t_table		  	input;
+	t_table		  	output;
+  	t_table			docs_files;
 } t_data;
 
 #endif
