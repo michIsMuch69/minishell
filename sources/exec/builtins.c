@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/26 10:04:45 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:31:16 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,38 +18,37 @@
 // int ft_unset(char **args);
 // int ft_env(char **env);
 // int ft_exit(void);
-
 void ft_exit(char **args)
 {
-	int exit_code;
-
-	if (args[1])
+    int status = 0;
+    if (args[1])
 	{
-		exit_code = atoi(args[1]);
-	}
+        status = atoi(args[1]);
+    }
 	else
 	{
-		exit_code = last_exit_code;
-	}
-	// Cleanup et exit
-	printf("Exiting shell with code: %d\n", exit_code);
-	exit(exit_code);
+        status = last_exit_code;
+    }
+	printf("Exited with status code : %d\n", status);
+    exit(status);
 }
+
 
 int ft_pwd(void)
 {
-	char cwd[1024];
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
-		printf("my own pwd result : %s\n", cwd);
-		return 33;
-	}
+        ft_printf("%s\n", cwd);
+        return (0); // Success
+    }
 	else
 	{
-		perror("pwd");
-		return 1;
-	}
+        handle_error("my pwd", errno); // Use handle_error to set last_exit_code
+        return (1);
+    }
 }
+
 
 int ft_env(char **env)
 {
@@ -58,24 +57,23 @@ int ft_env(char **env)
 	i = 0;
 	while (env[i] != NULL)
 	{
-		printf("%s\\n", env[i]);
+		ft_printf("%s\\n", env[i]);
 		i++;
-	}
-	return 0;
-}
-int	ft_cd(char **args)
-{
-	if (args[1] == NULL)
-		return (ft_perror("No arguments to cd\n"), -1);
-	else
-	{
-		ft_printf("This is my own cmd CD\n");;
-			if (chdir(args[1]) != 0)
-				perror("cd");
 	}
 	return (0);
 }
-// int	ft_pwd(void)
-// {
-
-// }
+int ft_cd(char **args)
+{
+	printf("My cd\n");
+    if (!args[1])
+	{
+        handle_error("my cd ", errno);
+        return (1); 
+    }
+	if (chdir(args[1]) == -1)
+	{
+		handle_error("my cd", errno); 
+		return (1);
+	}
+    return (0); 
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florian <florian@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 08:59:06 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/25 18:50:02 by florian          ###   ########.fr       */
+/*   Updated: 2024/06/26 15:31:27 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void  free_pipes(int **tab, int size)
   int i;
 
   if (!tab)
-    return;
+    return ;
   i = 0;
   while (i < size)
     free(tab[i++]);
@@ -108,4 +108,11 @@ void	free_array(char **array)
 	while (array[i])
 		free(array[i++]);
 	free(array);
+}
+
+
+void handle_error(const char *message, int exit_code)
+{
+    last_exit_code = exit_code;
+    perror(message);
 }

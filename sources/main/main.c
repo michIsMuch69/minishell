@@ -1,16 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 14:58:11 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/26 09:38:13 by jedusser         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-
 /*
 Pour configurer Visual Studio Code (VS Code) afin que le raccourci Ctrl + Clic redirige vers la définition d’une fonction, voici les étapes à suivre :
 

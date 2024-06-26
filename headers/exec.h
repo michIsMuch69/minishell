@@ -28,6 +28,7 @@
 #include <readline/history.h>
 #include <stdbool.h>
 #include <errno.h>
+
 extern int last_exit_code;
 
 void	print_tab(t_table tab);
@@ -49,6 +50,8 @@ int		ft_strcmp(char *s1, char *s2);
 void	free_array(char **array);
 int		clean_struct(t_data *data);
 int		init_exec(t_data *data, int tab_size, int ***pipe_fd);
+void handle_error(const char *message, int exit_code);
+
 
 /*===========================builtins.c===============================*/
 
