@@ -1,0 +1,13 @@
+Testing custom ft_exit function:
+Exit status: 0
+Exit status: 1
+Exit status: 42
+Exit status: 255
+Exit status: 0
+Exit status: 255
+Exit status: 0
+Exit status: 255
+Exit status: 232
+/Users/jean-micheldusserre/Documents/minishell
+/Users/jean-micheldusserre/Documents/minishell
+Exit status: 0
