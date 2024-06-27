@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/26 17:49:21 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/06/27 10:46:51 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,41 @@
 // int ft_env(char **env);
 // int ft_exit(void);
 
-void ft_exit(char **args)
+int	is_numeric_str(char *str)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void ft_exit(char **args, int last_status)
 {
     int status = 0;
     if (args[1])
     {
-        char *endptr;
-        status = strtol(args[1], &endptr, 10);
-        if (*endptr != '\0')
+        if (is_numeric_str(args[1]) == 0)
         {
-            ft_putstr_fd("exit: numeric argument required\n", 2);
-            status = 255;
+			ft_putstr_fd("exit: numeric argument required\n", 2);
+           	status = 255;
         }
         else
         {
+        	status = ft_atoi(args[1]);
             status = status % 256;
             if (status < 0)
                 status += 256;
         }
     }
     else
-    {
-        status = last_exit_code;
-    }
-    exit(status);
+        status = last_status;
+    exit (status);
 }
 
 
@@ -50,6 +61,7 @@ void ft_exit(char **args)
 int ft_pwd(void)
 {
     char cwd[1024];
+	ft_printf("My pwd"); //last exit code 
     if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
         ft_printf("%s\n", cwd);
@@ -57,7 +69,6 @@ int ft_pwd(void)
     }
 	else
 	{
-        handle_error("my pwd", errno);//last exit code 
         return (1);
     }
 }
@@ -83,13 +94,13 @@ int ft_cd(char **args)
         const char *home = getenv("HOME");
         if (home == NULL)
 		{
-            handle_error("my cd: HOME not set", errno);
-            return (1);
+          //  handle_error("my cd: HOME not set", errno);
+            return (1); // back to prompt
         }
         if (chdir(home) == -1)
 		{
-            handle_error("my cd: HOME", errno);
-            return (1);
+            perror(NULL);
+            return (-1); // crash minishell
         }
     }
     else if (chdir(args[1]) == -1)

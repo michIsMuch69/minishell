@@ -50,12 +50,12 @@ int		ft_strcmp(char *s1, char *s2);
 void	free_array(char **array);
 int		clean_struct(t_data *data);
 int		init_exec(t_data *data, int tab_size, int ***pipe_fd);
-void handle_error(const char *message, int exit_code);
+void	handle_error(const char *message, int exit_code);
 
 
 /*===========================builtins.c===============================*/
 
-void	ft_exit(char **args);
+void	ft_exit(char **args, int last_status);
 int		ft_cd(char **args);
 int		ft_pwd(void);
 
@@ -67,8 +67,8 @@ void	exec_builtin(t_data *data);
 
 /*===========================redirections.c===============================*/
 
-int   handle_redirection(int *fds, t_data *data);
-void  close_free_fds(int *fds);
+int		handle_redirection(int *fds, t_data *data);
+void 	close_free_fds(int *fds);
 
 /*===========================redirections_utils.c===============================*/
 

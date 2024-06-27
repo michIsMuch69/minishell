@@ -1,13 +1,22 @@
 Testing custom ft_exit function:
+[32mmini$hell>[0m exit 0
 Exit status: 0
+[32mmini$hell>[0m exit 1
 Exit status: 1
+[32mmini$hell>[0m exit 42
 Exit status: 42
+[32mmini$hell>[0m exit 255
 Exit status: 255
+[32mmini$hell>[0m exit
 Exit status: 0
+[32mmini$hell>[0m exit abc
 Exit status: 255
+[32mmini$hell>[0m exit 256
 Exit status: 0
+[32mmini$hell>[0m exit -1
 Exit status: 255
+[32mmini$hell>[0m exit 1000
 Exit status: 232
-/Users/jean-micheldusserre/Documents/minishell
-/Users/jean-micheldusserre/Documents/minishell
+[32mmini$hell>[0m pwd
+My pwd/home/jedusser/Documents/minishell
 Exit status: 0

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/06/26 15:58:00 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/06/27 10:38:41 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ static int  init_structure(t_data *data, int *in_out)
   * before loop
     -> open pipes
     -> play heredocs
-
-  * in loop on all instances of t_data *data
+last_exit_code = WEXITSTATUS(status);instances of t_data *data
 
     -> in init_structure :
       - expand variables
@@ -134,13 +133,20 @@ int	exec(int tab_size, t_data *data)
 		if (status)
 			return (status);
 		if (is_builtin(&data[i]))
-			exec_builtin(data);
+		{
+			exec_builtin(data); //chg proy
+			// if (status == -1)
+			// 	return (-1);
+			// else if (status == 1)
+			// 	;
+				
+		}
 		pid = exec_handler(&(data[i]), in_out_fd);
 		if (pid <= 1) // pid > 1 == child pid
 			return (pid);  // -1 -> crash : 1 -> back to prompt
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
-			last_exit_code = WEXITSTATUS(status);
+			WEXITSTATUS(status);
 		if (in_out_fd[0]!= STDIN_FILENO)
 			close(in_out_fd[0]);
 		if (in_out_fd[1] != STDOUT_FILENO)
