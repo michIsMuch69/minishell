@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:16:08 by fberthou          #+#    #+#             */
-/*   Updated: 2024/06/27 10:29:10 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:11:57 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_data
 {
 	enum e_rtype	cmd_type;
 	char			*cmd_path;
+	int				exit_status;
+	int				in_out_fd[2];
 	t_table	  		args;
 	t_table		  	env;
 	t_table		  	input;

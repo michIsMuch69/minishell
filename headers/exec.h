@@ -48,8 +48,7 @@ int 	check_all_dirs(t_data *data, char **directory);
 
 int		ft_strcmp(char *s1, char *s2);
 void	free_array(char **array);
-int		clean_struct(t_data *data);
-int		init_exec(t_data *data, int tab_size, int ***pipe_fd);
+int 	init_structure(t_data *data);
 void	handle_error(const char *message, int exit_code);
 
 
@@ -63,19 +62,19 @@ int		ft_pwd(void);
 /*===========================builtins_utils.c===============================*/
 
 int		is_builtin(t_data *data);
-void	exec_builtin(t_data *data);
+void	exec_builtin(t_data *data, int **pipe_ptr, int tab_size);
 
 /*===========================redirections.c===============================*/
 
-int		handle_redirection(int *fds, t_data *data);
-void 	close_free_fds(int *fds);
+int   handle_redirection(t_data *data);
+int  close_fds(int **fds, int size, int in_out[2]);
 
 /*===========================redirections_utils.c===============================*/
 
 char	*skip_redir_symbol(char *token_file, bool direction);
 int		arrow_count(char *str, char c);
-int		create_all(t_table outfile);
-int		check_all(t_table infile);
+int   create_all(t_table outfile);
+int   check_all(t_table infile);
 
 /*===========================parsing/expand.c===============================*/
 
@@ -88,5 +87,9 @@ int	  token_cleaner(t_data *data);
 /*===========================heredoc.c===============================*/
 
 int	  heredoc_management(t_data *data, int tab_size);
+
+/*===========================fds_management.c===============================*/
+
+int   **init_pipe(int size);
 
 #endif

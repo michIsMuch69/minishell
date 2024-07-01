@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: florian <florian@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 08:59:06 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/01 13:15:16 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:51:20 by florian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,4 @@ void	free_array(char **array)
 	while (array[i])
 		free(array[i++]);
 	free(array);
-}
-
-
-void handle_error(const char *message, int exit_code)
-{
-  last_exit_code = exit_code;
-	if (errno != 0)
-    	perror(message);
-	else
-		ft_perror("Error\n");
 }
