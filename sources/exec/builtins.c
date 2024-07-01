@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/01 13:11:26 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:29:08 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	is_numeric_str(char *str)
 
 void ft_exit(char **args, int last_status)
 {
+    printf("My exit\n");
+
     int status = 0;
     if (args[1])
     {
@@ -49,11 +51,15 @@ void ft_exit(char **args, int last_status)
             status = status % 256;
             if (status < 0)
                 status += 256;
+            printf("Status in ft_exit = %d\n", status);
         }
     }
     else
+    {
+        printf("Status in ft_exit no agrs = %d\n", status);
         status = last_status;
-    exit (status);
+    }
+    exit(status);
 }
 
 
@@ -79,6 +85,8 @@ int ft_env(char **env)
 	int	i;
 
 	i = 0;
+    printf("My env\n");
+
 	while (env[i] != NULL)
 	{
 		ft_printf("%s\\n", env[i]);
@@ -88,7 +96,7 @@ int ft_env(char **env)
 }
 int ft_cd(char **args)
 {
-    printf("My cd\n");
+    printf("My cd\n");  
     if (!args[1])
     {
         const char *home = getenv("HOME");
@@ -105,7 +113,7 @@ int ft_cd(char **args)
     }
     else if (chdir(args[1]) == -1)
     {
-        handle_error("my cd: args[1]", errno);
+        perror("my cd");
         return (1);
     }
     return (0);

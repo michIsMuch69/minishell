@@ -53,3 +53,8 @@ pwd
 exit
 EOF
 echo "Exit status: $?"
+
+bash << EOF
+cd headers
+EOF
+echo "Exit status: $?"

@@ -1,22 +1,13 @@
-Testing custom ft_exit function:
-[32mmini$hell>[0m exit 0
+Testing Bash exit command:
 Exit status: 0
-[32mmini$hell>[0m exit 1
 Exit status: 1
-[32mmini$hell>[0m exit 42
 Exit status: 42
-[32mmini$hell>[0m exit 255
 Exit status: 255
-[32mmini$hell>[0m exit
 Exit status: 0
-[32mmini$hell>[0m exit abc
-Exit status: 255
-[32mmini$hell>[0m exit 256
+Exit status: 2
 Exit status: 0
-[32mmini$hell>[0m exit -1
 Exit status: 255
-[32mmini$hell>[0m exit 1000
 Exit status: 232
-[32mmini$hell>[0m pwd
-My pwd/home/jedusser/Documents/minishell
+/home/michismuch/Documents/minishell
+Exit status: 0
 Exit status: 0

@@ -8,5 +8,6 @@ Exit status: 2
 Exit status: 0
 Exit status: 255
 Exit status: 232
-/home/jedusser/Documents/minishell
+/home/michismuch/Documents/minishell
+Exit status: 0
 Exit status: 0

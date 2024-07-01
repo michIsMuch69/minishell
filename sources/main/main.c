@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:58:11 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/01 13:08:49 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:38:35 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,8 +182,8 @@ int main (int argc, char **argv, char **envp)
 		if (tab_size == -1)
 			return (free_struct(data, 1), 4);
 		if (tab_size)
-      if (exec(tab_size, data) == -1)
-			  return (free_struct(data, 1), free(prompt), 5);
+      		if (exec(tab_size, data) == -1)
+				return (free_struct(data, 1), free(prompt), 5);
 		// if (++index == 4)
 		// 	return (free(prompt), free_struct(data, tab_size), 0);
 		if (prompt)

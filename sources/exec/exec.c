@@ -6,14 +6,11 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/01 13:15:42 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:14:22 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-int last_exit_code = 0;
-
 
 void  free_pipes(int **tab, int size);
 
@@ -46,15 +43,20 @@ int get_cmd_path(t_data *data)
   if (!data->args.tab)
     return (1);
   directory = NULL;
+  printf("ICI\n");
   ret_value = check_all_dirs(data, &directory); // fill directory with the path where data->arg.tab[0] is located
   if (ret_value)
     return (ret_value);
   if (!directory)
+  {  
     return (ft_perror("command not found\n"), 1);
+  }
   data->cmd_path = ft_concat_path(directory, data->args.tab[0]); // concate directory with args.tab[0] for the complete path of the commande (ex : /usr/bin/cat)
   free(directory);
   if (!data->cmd_path)
     return (-1);
+  printf("command path: %s\n", data->cmd_path);
+
   return (0);
 }
 
@@ -140,11 +142,14 @@ static int	exec_all(t_data *data, int tab_size, int **fd)
         printf("error here i ==%d\n", i);
         exit(EXIT_FAILURE);
       }
-      // if (is_builtin(&(data[i])))
-      //   exec_builtin(&(data[i]), fd, tab_size);
-      // else
-      if (execve(data[i].cmd_path, data[i].args.tab, data[i].env.tab) == -1)
-        exit(EXIT_FAILURE);
+      if (is_builtin(&(data[i])))
+      {
+        printf("is buultin !\n");
+          return (exec_builtin(&(data[i])), 0);
+      }
+      else
+        if (execve(data[i].cmd_path, data[i].args.tab, data[i].env.tab) == -1)
+          exit(EXIT_FAILURE);
     }
     else
     {
@@ -193,7 +198,10 @@ int exec_one(t_data *data)
   }
   ret_value = get_cmd_path(data);
   if (ret_value)
-    return (ret_value); // -1 -> error : 1 -> back to prompt
+  {
+    printf("HERE\n");
+   // return (ret_value); // -1 -> error : 1 -> back to prompt
+  }
   pid = fork();
   if (pid < 0)
     return (perror("Fork failed "), -1);
@@ -205,9 +213,14 @@ int exec_one(t_data *data)
   }
   if (ft_dup(data->in_out_fd[0], data->in_out_fd[1]) == -1)
     return (close_fds(NULL, 0, data->in_out_fd), exit(EXIT_FAILURE), -1);
-  // if (is_builtin(data))
-  //   return (exec_builtin(data), 0);
-  execve(data->cmd_path, data->args.tab, data->env.tab);
+  if (is_builtin(&(data[0])))
+  {
+    printf("is buultin !\n");
+
+    return (exec_builtin(data), 0);
+  }
+  else 
+    execve(data->cmd_path, data->args.tab, data->env.tab);
   close_fds(NULL, 0, data->in_out_fd);
   return (exit(EXIT_FAILURE), -1);
 }
