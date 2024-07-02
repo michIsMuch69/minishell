@@ -6,18 +6,18 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 08:58:51 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/01 14:35:42 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/02 11:39:06 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-int	ft_getenv(char *word, char **env, char **var_content);
 
+int	ft_getenv(char *word, char **env, char **var_content);
 
 int	exec_found(const char *dirname, char *exec_searched)
 {
-	DIR				    *dir;
-	struct dirent	*entity;
+	DIR					*dir;
+	struct dirent		*entity;
 
 //  printf("cmd == %s\ndirename == %s\n", exec_searched, dirname);
 	dir = opendir(dirname);
@@ -27,52 +27,52 @@ int	exec_found(const char *dirname, char *exec_searched)
 			return (0);
 		return (perror("opendir"), -1);
 	}
-  //printf("\n\n");
+//printf("\n\n");
 	entity = readdir(dir);
-  	if (!entity && errno)
-   		return (perror("readdir"), closedir(dir), -1);
+	if (!entity && errno)
+		return (perror("readdir"), closedir(dir), -1);
 	while (entity != NULL)
 	{
 		if (ft_strcmp(entity->d_name, exec_searched) == 0)
 		{
 			if (closedir(dir) == -1)
-     		   return (perror("closedir"), -1);
+				return (perror("closedir"), -1);
 			return (1);
 		}
 		entity = readdir(dir);
 		if (!entity && errno)
 		{
 			if (errno == 2)
-				break;
+				break ;
 			return (perror("readdir"), closedir(dir), -1);
 		}
 	}
 	if (closedir(dir) == -1)
-    	return (perror("closedir"), -1);
+		return (perror("closedir"), -1);
 	return (0);
 }
 
-int check_all_dirs(t_data *data, char **directory)
+int	check_all_dirs(t_data *data, char **directory)
 {
-	int			i;
-  	int     ret_value;
-	char    *tmp;
+	int		i;
+	int		ret_value;
+	char	*tmp;
 	char	**path_list;
 
 	i = 0;
 	if (ft_getenv("PATH", data->env.tab, &tmp) == -1)
 		return (-1);
-  	if (!tmp)
-    	return (ft_perror("PATH not in env\n"), 1);
+	if (!tmp)
+		return (ft_perror("PATH not in env\n"), 1);
 	path_list = ft_split(tmp, ':'); // path list est un tableau de tableau avec $PATH split ':'
-  	free(tmp);
+	free(tmp);
 	if (!path_list)
 		return (ft_perror("error-> split PATH\n"), -1);
 	while (path_list[i])
 	{
-    	ret_value = exec_found(path_list[i], data->args.tab[0]);
+		ret_value = exec_found(path_list[i], data->args.tab[0]);
 		if (ret_value == -1)
-     		return (free_array(path_list), -1);
+			return (free_array(path_list), -1);
 		if (ret_value == 1)
 		{
 			*directory = ft_strdup(path_list[i]);// dup le path jusqu'au binnaire de la commande
