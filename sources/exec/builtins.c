@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/01 15:29:08 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/02 11:05:41 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,10 @@ void ft_exit(char **args, int last_status)
     exit(status);
 }
 
-
-
 int ft_pwd(void)
 {
     char cwd[1024];
-	ft_printf("My pwd"); //last exit code 
+	ft_printf("My pwd\n"); //last exit code 
     if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
         ft_printf("%s\n", cwd);
@@ -79,12 +77,13 @@ int ft_pwd(void)
     }
 }
 
-
 int ft_env(char **env)
 {
 	int	i;
 
 	i = 0;
+    // env process
+    
     printf("My env\n");
 
 	while (env[i] != NULL)
@@ -94,6 +93,7 @@ int ft_env(char **env)
 	}
 	return (0);
 }
+
 int ft_cd(char **args)
 {
     printf("My cd\n");  
@@ -118,3 +118,5 @@ int ft_cd(char **args)
     }
     return (0);
 }
+
+
