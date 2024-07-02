@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:46:50 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/02 13:13:58 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:07:34 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	exec_builtin_parent(t_data *data)
 		printf("Executing built-in cd in parent process\n");
 
 		status = ft_cd(data->args.tab);
+		close_fds(NULL, 0, data->in_out_fd);
 		return ;
 		// cd doesn't exit the shell, so no exit(status) at the end.
 	}

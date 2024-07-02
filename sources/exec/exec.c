@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/02 13:10:19 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:08:29 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ static int exec_all(t_data *data, int tab_size, int **fd)
         {
             exec_builtin_parent(&(data[i]));
             i++;
-            continue;
         }
 
         pid = fork();
