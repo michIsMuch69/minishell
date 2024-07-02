@@ -47,16 +47,26 @@ int 	check_all_dirs(t_data *data, char **directory);
 int		ft_strcmp(char *s1, char *s2);
 void	free_array(char **array);
 int 	init_structure(t_data *data);
+void	handle_error(const char *message, int exit_code);
+
 
 /*===========================builtins.c===============================*/
 
-int		ft_exit(void);
+void	ft_exit(char **args, int last_status);
 int		ft_cd(char **args);
+int		ft_pwd(void);
+
 
 /*===========================builtins_utils.c===============================*/
 
-int		is_builtin(t_data *data);
-void	exec_builtin(t_data *data, int **pipe_ptr, int tab_size);
+int is_builtin_parent(t_data *data);
+int is_builtin_child(t_data *data);
+
+void exec_builtin_parent(t_data *data);
+void exec_builtin_child(t_data *data, int **pipe_ptr, int tab_size);
+
+//void	exec_builtin(t_data *data);
+
 
 /*===========================redirections.c===============================*/
 
@@ -84,6 +94,10 @@ int	  heredoc_management(t_data *data, int tab_size);
 
 /*===========================fds_management.c===============================*/
 
-int   **init_pipe(int size);
+int		**init_pipe(int size);
+void	free_pipes(int **tab, int size);
+int		close_fds(int **fds, int size, int in_out[2]);
+
+
 
 #endif

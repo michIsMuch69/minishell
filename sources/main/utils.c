@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florian <florian@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:56:02 by fberthou          #+#    #+#             */
-/*   Updated: 2024/06/23 16:00:03 by florian          ###   ########.fr       */
+/*   Updated: 2024/06/27 09:27:09 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	free_tab(t_table *tab, int start)
   {
     if (tab->tab[i])
     {
-		  free(tab->tab[i]);
-      tab->tab[i] = NULL;
+		free(tab->tab[i]);
+      	tab->tab[i] = NULL;
     }
     i++;
   }
@@ -74,7 +74,7 @@ void	free_struct(t_data *struc, int tab_size)
 		struc[i].input.tab = NULL;
 		free_tab(&(struc[i].output), 0);
 		struc[i].output.tab = NULL;
-    destroy_heredocs(&(struc[i].docs_files));
+    	destroy_heredocs(&(struc[i].docs_files));
 		i++;
 	}
 	free_tab(&(struc->env), 0);
