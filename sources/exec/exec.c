@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/02 11:58:17 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:10:19 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,83 +118,82 @@ int	pipe_management(t_data data, int i, int tab_size, int **fds, int last_read)
 }
 
 
-static int	exec_all(t_data *data, int tab_size, int **fd)
+static int exec_all(t_data *data, int tab_size, int **fd)
 {
-	int		i;
-	pid_t	pid;
-	int		ret_value;
-	int		last_read_fd;
+    int i;
+    pid_t pid;
+    int ret_value;
+    int last_read_fd;
 
-	last_read_fd = 0;
-	i = 0;
-	while (i < tab_size)
-	{
-		ret_value = init_structure(&(data[i]));
-		if (ret_value)
-			return (ret_value);
-		if (is_builtin_parent(&(data[i])))
-		{
-			exec_builtin_parent(&(data[i]));
-			continue ;
-		}
-		pid = fork();
-		if (pid < 0)
-			return (perror("Fork failed "), pid); // -1 -> crash
-		if (pid == 0)
-		{
-			ret_value = pipe_management(data[i], i, tab_size, fd, last_read_fd);
-			if (ret_value)
-			{
-				printf("error here i ==%d\n", i);
-				exit(EXIT_FAILURE);
-			}
-			if (is_builtin_child(&(data[i])))
-			{
-				printf("is builtin!\n");
-				exec_builtin_child(&(data[i]), fd, tab_size);
-				exit(0);
-			}
-			
-			ret_value = get_cmd_path(&(data[i]));
-			if (ret_value)
-			{
-				exit(ret_value);
-			}
-			if (ret_value)
-			{
-				printf("error here i ==%d\n", i);
-				exit(EXIT_FAILURE);
-			}
-			if (execve(data[i].cmd_path, data[i].args.tab, data[i].env.tab) == -1)
-				exit(EXIT_FAILURE);
-		}
-		else
-		{
-			if (i == 0)
-			{
-				last_read_fd = fd[i][0];
-				close(fd[0][1]);
-				if (data[i].in_out_fd[0] != STDIN_FILENO)
-					close(data[i].in_out_fd[0]);
-				if (data[i].in_out_fd[1] != STDOUT_FILENO)
-					close(data[i].in_out_fd[1]);
-			}
-			else if (i == tab_size - 1)
-			{
-				close(last_read_fd);
-				if (data[i].in_out_fd[0] != STDIN_FILENO)
-					close(data[i].in_out_fd[0]);
-				if (data[i].in_out_fd[1] != STDOUT_FILENO)
-					close(data[i].in_out_fd[1]);
-			}
-		}
-		i++;
-	}
-	free_pipes(fd, tab_size - 1);
-	if (waitpid(pid, &(data[0].exit_status), 0) == -1)
-		return (ft_perror("crash -> waitpid\n"), -1);
-	return (0);
+    last_read_fd = 0;
+    i = 0;
+    while (i < tab_size)
+    {
+        ret_value = init_structure(&(data[i]));
+        if (ret_value)
+            return (ret_value);
+        
+        if (is_builtin_parent(&(data[i])))
+        {
+            exec_builtin_parent(&(data[i]));
+            i++;
+            continue;
+        }
+
+        pid = fork();
+        if (pid < 0)
+            return (perror("Fork failed "), pid);  // -1 -> crash
+        if (pid == 0)
+        {
+            ret_value = pipe_management(data[i], i, tab_size, fd, last_read_fd);
+            if (ret_value)
+            {
+                printf("error here i == %d\n", i);
+                exit(EXIT_FAILURE);
+            }
+            if (is_builtin_child(&(data[i]))) 
+            {
+                printf("is builtin!\n");
+                exec_builtin_child(&(data[i]), fd, tab_size);
+                exit(0);
+            }
+            
+            ret_value = get_cmd_path(&(data[i]));
+            if (ret_value)
+            {
+                exit(ret_value);
+            }
+            if (execve(data[i].cmd_path, data[i].args.tab, data[i].env.tab) == -1)
+                exit(EXIT_FAILURE);
+        }
+        else
+        {
+            if (i == 0)
+            {
+                last_read_fd = fd[i][0];
+                close(fd[0][1]);
+                if (data[i].in_out_fd[0] != STDIN_FILENO)
+                    close(data[i].in_out_fd[0]);
+                if (data[i].in_out_fd[1] != STDOUT_FILENO)
+                    close(data[i].in_out_fd[1]);
+            }
+            else if (i == tab_size - 1)
+            {
+                close(last_read_fd);
+                if (data[i].in_out_fd[0] != STDIN_FILENO)
+                    close(data[i].in_out_fd[0]);
+                if (data[i].in_out_fd[1] != STDOUT_FILENO)
+                    close(data[i].in_out_fd[1]);
+            }
+        }
+        i++;
+    }
+    free_pipes(fd, tab_size - 1);
+    if (waitpid(pid, &(data[0].exit_status), 0) == -1)
+        return (ft_perror("crash -> waitpid\n"), -1);
+    return (0);
 }
+
 
 int	exec_one(t_data *data, int **pipe_ptr, int tab_size)
 {

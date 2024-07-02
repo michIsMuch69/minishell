@@ -54,7 +54,7 @@ exit
 EOF
 echo "Exit status: $?"
 
-./minishell << EOF
-cd headers
-EOF
-echo "Exit status: $?"
+# ./minishell << EOF
+# cd headers
+# EOF
+# echo "Exit status: $?"

@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/02 11:44:57 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:36:17 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ void	ft_exit(char **args, int last_status)
 			status = status % 256;
 			if (status < 0)
 				status += 256;
-			printf("Status in ft_exit = %d\n", status);
+			//printf("Status in ft_exit = %d\n", status);
 		}
 	}
 	else
 	{
-		printf("Status in ft_exit no agrs = %d\n", status);
+		//printf("Status in ft_exit no agrs = %d\n", status);
 		status = last_status;
 	}
 	exit(status);
@@ -96,14 +96,14 @@ int	ft_env(char **env)
 
 int	ft_cd(char **args)
 {
-	const char	*home = getenv("HOME");
+	const char	*home;
 	
+	home = getenv("HOME");
 	printf("My cd\n");
 	if (!args[1])
 	{
 		if (home == NULL)
 		{
-			//  handle_error("my cd: HOME not set", errno);
 			return (1); // back to prompt
 		}
 		if (chdir(home) == -1)

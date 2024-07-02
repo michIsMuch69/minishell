@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 07:33:24 by fberthou          #+#    #+#             */
-/*   Updated: 2024/07/01 14:09:29 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:22:44 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ int	parse_prompt(char **prompt, char **env, t_data **data)
 	if (struc_tab_size == -1)
 		return (free_tab(&tokens, 0), free(*prompt), -1);
 	free_tab(&tokens, 0);
-	print_struct(*data, struc_tab_size);
+	//print_struct(*data, struc_tab_size);
 	return (struc_tab_size);
 }

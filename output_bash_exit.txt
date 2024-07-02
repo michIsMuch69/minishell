@@ -10,4 +10,3 @@ Exit status: 255
 Exit status: 232
 /home/michismuch/Documents/minishell
 Exit status: 0
-Exit status: 0
