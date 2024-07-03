@@ -1,0 +1,26 @@
+#include <unistd.h>
+
+// Function to display the prompt if running interactively
+void display_prompt(void)
+{
+    if (isatty(STDIN_FILENO))
+    {
+        printf("mini$hell> ");
+    }
+}
+
+int main(int argc, char **argv, char **envp)
+{
+    // Initialization code...
+
+    while (1)
+    {
+        if running interactively
+        display_prompt();
+
+        // Command reading and execution code...
+    }
+
+    // Cleanup code...
+    return 0;
+}

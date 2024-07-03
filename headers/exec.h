@@ -53,44 +53,48 @@ void	handle_error(const char *message, int exit_code);
 /*===========================builtins.c===============================*/
 
 void	ft_exit(char **args, int last_status);
-int		ft_cd(char **args);
+int		ft_cd(char **args, char **env);
 int		ft_pwd(void);
+int		ft_echo(char **args);
+int		ft_env(char **env);
+
+
 
 
 /*===========================builtins_utils.c===============================*/
 
-int is_builtin_parent(t_data *data);
-int is_builtin_child(t_data *data);
+int		is_builtin_parent(t_data *data);
+int		is_builtin_child(t_data *data);
 
-void exec_builtin_parent(t_data *data);
-void exec_builtin_child(t_data *data, int **pipe_ptr, int tab_size);
+void	exec_builtin_parent(t_data *data);
+void	exec_builtin_child(t_data *data, int **pipe_ptr, int tab_size);
 
 //void	exec_builtin(t_data *data);
 
 
 /*===========================redirections.c===============================*/
 
-int   handle_redirection(t_data *data);
-int  close_fds(int **fds, int size, int in_out[2]);
+int		handle_redirection(t_data *data);
+int		close_fds(int **fds, int size, int in_out[2]);
 
 /*===========================redirections_utils.c===============================*/
 
 char	*skip_redir_symbol(char *token_file, bool direction);
 int		arrow_count(char *str, char c);
-int   create_all(t_table outfile);
-int   check_all(t_table infile);
+int		create_all(t_table outfile);
+int		check_all(t_table infile);
 
 /*===========================parsing/expand.c===============================*/
 
-int	  expand_management(t_data *data, char **envp);
+int		expand_management(t_data *data, char **envp);
 
 /*===========================parsing/cleaner.c===============================*/
 
-int	  token_cleaner(t_data *data);
+int		token_cleaner(t_data *data);
 
 /*===========================heredoc.c===============================*/
 
-int	  heredoc_management(t_data *data, int tab_size);
+int		heredoc_management(t_data *data, int tab_size);
 
 /*===========================fds_management.c===============================*/
 
@@ -98,6 +102,6 @@ int		**init_pipe(int size);
 void	free_pipes(int **tab, int size);
 int		close_fds(int **fds, int size, int in_out[2]);
 
-
+int		ft_getenv(char *word, char **env, char **var_content);
 
 #endif

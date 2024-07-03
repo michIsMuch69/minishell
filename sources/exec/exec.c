@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/02 14:08:29 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:07:39 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ static int exec_all(t_data *data, int tab_size, int **fd)
         if (is_builtin_parent(&(data[i])))
         {
             exec_builtin_parent(&(data[i]));
+			//tab_size++;
             i++;
         }
 
@@ -154,7 +155,7 @@ static int exec_all(t_data *data, int tab_size, int **fd)
             {
                 printf("is builtin!\n");
                 exec_builtin_child(&(data[i]), fd, tab_size);
-                exit(0);
+                exit(EXIT_SUCCESS);
             }
             
             ret_value = get_cmd_path(&(data[i]));
@@ -217,7 +218,7 @@ int	exec_one(t_data *data, int **pipe_ptr, int tab_size)
 		if (is_builtin_child(data))
 		{
 			exec_builtin_child(data, pipe_ptr, tab_size);
-			exit(0);
+			exit(EXIT_SUCCESS);
 		}
 		ret_value = get_cmd_path(data);
 		if (ret_value)

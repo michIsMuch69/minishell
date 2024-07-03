@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:46:50 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/02 14:07:34 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:03:49 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void	exec_builtin_parent(t_data *data)
 	{
 		printf("Executing built-in cd in parent process\n");
 
-		status = ft_cd(data->args.tab);
+		status = ft_cd(data->args.tab, data->env.tab);
+		if (status = -1)
+			perror("cd failed");
 		close_fds(NULL, 0, data->in_out_fd);
 		return ;
 		// cd doesn't exit the shell, so no exit(status) at the end.
@@ -87,14 +89,14 @@ void	exec_builtin_child(t_data *data, int **pipe_ptr, int tab_size)
 	{
 		status = ft_pwd();
 	}
-	// else if (ft_strcmp(data->args.tab[0], "echo") == 0)
-	// {
-	//     status = ft_echo(data->args.tab);
-	// }
-	// else if (ft_strcmp(data->args.tab[0], "env") == 0)
-	// {
-	//     status = ft_env(data->env.tab);
-	// }
+	else if (ft_strcmp(data->args.tab[0], "echo") == 0)
+	{
+	    status = ft_echo(data->args.tab);
+	}
+	else if (ft_strcmp(data->args.tab[0], "env") == 0)
+	{
+	    status = ft_env(data->env.tab);
+	}
 	close_fds(NULL, 0, data->in_out_fd);
 	free_pipes(pipe_ptr, tab_size - 1);
 	exit(status);

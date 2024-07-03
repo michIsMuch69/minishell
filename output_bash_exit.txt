@@ -1,12 +1,7 @@
 Testing Bash exit command:
-Exit status: 0
-Exit status: 1
-Exit status: 42
-Exit status: 255
-Exit status: 0
-Exit status: 2
-Exit status: 0
-Exit status: 255
-Exit status: 232
+Testing Bash exit command:
+After cd headers: PWD = /home/michismuch/Documents/minishell/headers
+/home/michismuch/Documents/minishell/headers
+After cd ..: PWD = /home/michismuch/Documents/minishell
 /home/michismuch/Documents/minishell
 Exit status: 0

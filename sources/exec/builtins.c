@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/02 12:36:17 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:16:42 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,42 @@ int	is_numeric_str(char *str)
 	return (1);
 }
 
+int	ft_echo(char **args)
+{
+	int	flag;
+	int	i;
+
+	flag = 0;
+	i = 1;
+	if (args[1] && ft_strcmp(args[1], "-n") == 0)
+	{
+		flag = 1;
+		i++;
+	}
+	while (args[i])
+	{
+		ft_printf("%s", args[i]);
+		i++;
+	}
+	if (!flag)
+		ft_printf("\n");
+	return (0);
+	// what if ("echo "   "") ?? ;
+}
+
+int	ft_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		ft_printf("%s\n", env[i]);
+		i++;
+	}
+	return (0);
+}
+
 void	ft_exit(char **args, int last_status)
 {
 	int	status;
@@ -52,12 +88,12 @@ void	ft_exit(char **args, int last_status)
 			status = status % 256;
 			if (status < 0)
 				status += 256;
-			//printf("Status in ft_exit = %d\n", status);
+			printf("Status in ft_exit = %d\n", status);
 		}
 	}
 	else
 	{
-		//printf("Status in ft_exit no agrs = %d\n", status);
+		printf("Status in ft_exit no agrs = %d\n", status);
 		status = last_status;
 	}
 	exit(status);
@@ -66,56 +102,60 @@ void	ft_exit(char **args, int last_status)
 int	ft_pwd(void)
 {
 	char	cwd[1024];
+	char	*temp;
 
-	ft_printf("My pwd\n"); //last exit code 
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	ft_printf("My pwd\n"); //last exit code
+	temp = getcwd(cwd, sizeof(cwd));
+	if (temp != NULL)
 	{
 		ft_printf("%s\n", cwd);
 		return (0);
 	}
 	else
-	{
 		return (1);
-	}
 }
 
-int	ft_env(char **env)
+int	ft_cd(char **args, char **env)
 {
-	int	i;
+	char	*home;
+	char	*oldpwd;
+	char	*new_dir;
+	char	cwd[1024];
 
-	i = 0;
-	// env process
-	printf("My env\n");
-	while (env[i] != NULL)
+	home = NULL;
+	oldpwd = NULL;
+	new_dir = NULL;
+	if (!args[1] || ft_strcmp(args[1], "~") == 0)
 	{
-		ft_printf("%s\\n", env[i]);
-		i++;
-	}
-	return (0);
-}
-
-int	ft_cd(char **args)
-{
-	const char	*home;
-	
-	home = getenv("HOME");
-	printf("My cd\n");
-	if (!args[1])
-	{
-		if (home == NULL)
+		if (ft_getenv("HOME", env, &home) != 0)
 		{
-			return (1); // back to prompt
+			ft_putstr_fd("cd: HOME not set\n", 2);
+			return (-1);
 		}
-		if (chdir(home) == -1)
-		{
-			perror(NULL);
-			return (-1); // crash minishell
-		}
+		new_dir = home;
 	}
-	else if (chdir(args[1]) == -1)
+	else if (ft_strcmp(args[1], "-") == 0)
 	{
-		perror("my cd");
-		return (1);
+		if (ft_getenv("OLDPWD", env, &oldpwd) != 0)
+		{
+			ft_putstr_fd("cd: OLDPWD not set\n", 2);
+			return (-1);
+		}
+		new_dir = oldpwd;
 	}
+	else
+	{
+		new_dir = args[1];
+	}
+	if (chdir(new_dir) != 0)
+	{
+		perror("cd");
+		free(home);
+		free(oldpwd);
+		return (-1);
+	}
+	//-> i have to upadate oldpwd and pwd env variables --> "setenv" ?
+	free(home);
+	free(oldpwd);
 	return (0);
 }
