@@ -1,0 +1,97 @@
+ICI
+command path: /usr/bin/sort
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			\
+			\
+#                                                                              #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#                                                     +:+ +:+         +:+      #
+#                                                 +#+#+#+#+#+   +#+            #
+# **************************************************************************** #
+# **************************************************************************** #
+$(BUILD_PATH)/%.o : $(SRC_PATH)/%.c
+	$(CC) $(COMPFLAGS)  $^ -lreadline -o $@
+	$(CC) $(COMPFLAGS) -c $< -o $@
+			$(EXEC_PATH)/builtins.c	$(EXEC_PATH)/builtins_utils.c $(EXEC_PATH)/heredoc.c
+			$(EXEC_PATH)/exec.c $(EXEC_PATH)/build_exec_path.c $(EXEC_PATH)/exec_utils.c \
+			$(EXEC_PATH)/redirections.c $(EXEC_PATH)/redirections_utils.c $(EXEC_PATH)/fds_management.c \
+$(LIBFT)	: FORCE
+	@$(MAKE) -C $(LIBFT_PATH)/ all
+	$(MAKE) -C $(LIBFT_PATH) clean
+	$(MAKE) -C $(LIBFT_PATH) fclean
+$(NAME)	: $(OBJ) $(LIBFT)
+			$(PARSING_PATH)/cleaner.c $(PARSING_PATH)/quote_management.c \
+			$(PARSING_PATH)/expand.c $(PARSING_PATH)/expand_utils.c $(PARSING_PATH)/expand_utils_nd.c \
+			$(PARSING_PATH)/getenv.c \
+			$(PARSING_PATH)/parsing.c $(PARSING_PATH)/parsing_utils.c \
+			$(PARSING_PATH)/pre_treatment.c $(PARSING_PATH)/pre_treatment_utils.c \
+			$(PARSING_PATH)/struct_filling.c \
+			$(PARSING_PATH)/tokenizer.c \
+all		: $(LIBFT) $(NAME)
+BUILD_EXEC_PATH			= $(BUILD_PATH)/exec
+BUILD_MAIN_PATH			= $(BUILD_PATH)/main
+BUILD_PARS_PATH			= $(BUILD_PATH)/parsing
+BUILD_PATH				= .build
+#    By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+         #
+### --- CALL --- ###
+clean	:
+### --- CLEAN MANAGEMENT --- ###
+command path: /usr/bin/cat
+COMPFLAGS	=	-I$(HDR_PATH) $(LIB_FLAGS) -g # -Wall -Wextra -Werror
+# --- COMPILATION FLAGS --- #
+#    Created: 2024/04/03 11:07:17 by fberthou          #+#    #+#              #
+default	: all
+	@echo "$(GREEN)-- minishell ready --$(RESET_COLOR)"
+	@echo "$(YELLOW)-- removed minishell programm --$(RESET_COLOR)"
+	@echo "$(YELLOW)-- removed temporary files --$(RESET_COLOR)"
+EXEC_PATH				= $(SRC_PATH)/exec
+fclean	:
+FORCE	:
+GREEN		= \033[32m
+HDR_PATH				= headers
+ICI
+LIB_FLAGS	=	-I$(LIBFT_HDR_PATH)
+### --- LIBFT --- ###
+#LIBFT#
+LIBFT		= $(LIBFT_PATH)/libft.a
+LIBFT_HDR_PATH			= $(LIBFT_PATH)/hdr
+LIBFT_PATH				= libft
+MAIN_PATH				= $(SRC_PATH)/main
+#    Makefile                                           :+:      :+:    :+:    #
+### --- MINISHELL --- ###
+	@mkdir -p $(BUILD_PATH) $(BUILD_MAIN_PATH) $(BUILD_PARS_PATH) $(BUILD_EXEC_PATH)
+NAME		= minishell
+OBJ	= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
+#########     OBJECTS    #########
+PARSING_PATH			= $(SRC_PATH)/parsing
+.PHONY	: clean fclean re FORCE default all
+# --- PROG NAME --- #
+#PROJECT#
+re		: fclean all
+RESET_COLOR	= \033[0m
+	@rm -rf $(BUILD_PATH)
+	@rm -rf $(BUILD_PATH) $(NAME)
+# --- SET COLORS --- #
+# --- SET PATHS --- #
+SRC		=	$(MAIN_PATH)/main.c $(MAIN_PATH)/utils.c \
+SRC_PATH				= sources
+### ---- TEMPORARY FILES ---- ###
+#TEMPORARY FILES#
+#    Updated: 2024/06/26 10:39:02 by fberthou         ###   ########.fr        #
+YELLOW		= \033[33m

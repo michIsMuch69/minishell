@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/04 13:45:44 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/04 15:23:55 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	set_env(char *var, char *cwd, char **env)
 	i = 0;
 	var_len = ft_strlen(var);
 	cwd_len = ft_strlen(cwd);
-	new_value = malloc((var_len + 1 + cwd_len + 1) * sizeof(char));
+	new_value = malloc(var_len + 1 + cwd_len + 1 * sizeof(char));
     if (new_value == NULL)
         return;
     ft_strcpy(new_value, var);
@@ -138,15 +138,19 @@ void	set_env(char *var, char *cwd, char **env)
         {
             free(env[i]);
             env[i] = new_value;
+    		printf("size of  var set : %ld\n", ft_strlen(var));
             printf("env var set : %s\n", env[i]);
-            return;
+            return ;
         }
         i++;
     }
     env[i] = new_value;
     env[i + 1] = NULL; // Ensure the env array is null-terminated
+    printf("size of  var added : %ld\n", ft_strlen(env[i]));
     printf("env var added : %s\n", env[i]);
 }
+
+
 //ft_strncmp(var, ft_strlem(var)(+1?), env[i])
 
 int ft_cd(char **args, char **env)
@@ -155,7 +159,7 @@ int ft_cd(char **args, char **env)
     char	*home = NULL;
     char	*oldpwd = NULL;
     char	*new_dir = NULL;
-	char	*temp = NULL;
+	char	*temp;
 
 	temp = getcwd(cwd, sizeof(cwd));
     if (!args[1] || ft_strcmp(args[1], "~") == 0)
@@ -163,7 +167,7 @@ int ft_cd(char **args, char **env)
         if (ft_getenv("HOME", env, &home) != 0)
         {
             ft_putstr_fd("cd: HOME not set\n", 2);
-            return -1;
+            return (-1);
         }
         new_dir = home;
     }
@@ -172,7 +176,7 @@ int ft_cd(char **args, char **env)
         if (ft_getenv("OLDPWD", env, &oldpwd) != 0)
         {
             ft_putstr_fd("cd: OLDPWD not set\n", 2);
-            return -1;
+            return (-1);
         }
         new_dir = oldpwd;
     }
@@ -185,10 +189,11 @@ int ft_cd(char **args, char **env)
         perror("cd");
         free(home);
         free(oldpwd);
-        return -1;
+        return (-1);
     }
-	set_env("OLDPWD", temp, env);	
-	set_env("PWD", new_dir, env);
+	set_env("OLDPWD", temp, env);
+	temp = getcwd(cwd, sizeof(cwd) * sizeof(char));
+	set_env("PWD", temp, env);
 	free(home);
     free(oldpwd);
     return 0;
