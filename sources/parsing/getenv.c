@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:03:17 by fberthou          #+#    #+#             */
-/*   Updated: 2024/07/01 14:28:54 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/04 13:30:06 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // main/utils.c
 int	ft_perror(char *err_message);
 
-static int	extract_value(char *var, char *word, char **var_content)
+int	extract_value(char *var, char *word, char **var_content)
 {
 	int	i_var;
 	int	i_content;
@@ -35,7 +35,7 @@ static int	extract_value(char *var, char *word, char **var_content)
 	return (0);
 }
 
-static char	*var_exist(char *word, char **env)
+char	*var_exist(char *word, char **env)
 {
 	int	i_env;
 	int	i_word;

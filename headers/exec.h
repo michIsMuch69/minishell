@@ -103,5 +103,9 @@ void	free_pipes(int **tab, int size);
 int		close_fds(int **fds, int size, int in_out[2]);
 
 int		ft_getenv(char *word, char **env, char **var_content);
+void	set_env(char *var, char *cwd, char **env);
+char	*var_exist(char *word, char **env);
+
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:58:11 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/03 11:15:11 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:43:36 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,11 @@ int main (int argc, char **argv, char **envp)
 	if (argc != 1)
 		return (ft_perror("arguments are invalid\n"), 1);
 	data = init_data(envp);
+	//printf("%s\n",getenv("PATH"));
+	char cwd[256];
+	getcwd(cwd, 256);
+	printf("cwd in main : %s\n", cwd);
+	//set_env("PATH", cwd, data->env.tab);
 	if (!data)
 		return (ft_perror("error -> init structure\n"), 2);
 	while (1)
