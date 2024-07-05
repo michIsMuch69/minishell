@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:46:50 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/03 13:03:49 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:23:05 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ void	exec_builtin_parent(t_data *data)
 
 		ft_exit(data->args.tab, data->exit_code);
 	}
-	printf("Unexpected exit from exec_builtin_parent\n");
+	//printf("Unexpected exit from exec_builtin_parent\n");
 	// else if (ft_strcmp(data->args.tab[0], "export") == 0)
 	// {
 	//     status = ft_export(data->args.tab);
 	//     return;  // cd doesn't exit the shell, so no exit(status) at the end.
 	// }
-	// else if (ft_strcmp(data->args.tab[0], "unset") == 0)
-	// {
-	//     status = ft_unset(data->args.tab);
-	//     return;  // cd doesn't exit the shell, so no exit(status) at the end.
-	// }
+	else if (ft_strcmp(data->args.tab[0], "unset") == 0)
+	{
+	    status = ft_unset(data->args.tab[1], &(data->env));
+	    return;  // cd doesn't exit the shell, so no exit(status) at the end.
+	}
 	// only exit the shell if the exit command is called
 	exit(status);
 }

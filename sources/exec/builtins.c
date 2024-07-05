@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/04 15:23:55 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:55:53 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,44 +113,78 @@ int	ft_pwd(void)
 	{
 		return (1);
 	}
-	//pwd sera til change si command -recedente == cd args
 }
 
-void	set_env(char *var, char *cwd, char **env)
+void	set_env(char *key, char *value, char **env)
 {
     int		i;
-    int		var_len;
-    int		cwd_len;
+    int		key_len;
+    int		value_len;
     char	*new_value;
 	
 	i = 0;
-	var_len = ft_strlen(var);
-	cwd_len = ft_strlen(cwd);
-	new_value = malloc(var_len + 1 + cwd_len + 1 * sizeof(char));
+	key_len = ft_strlen(key);
+	value_len = ft_strlen(value);
+	new_value = malloc((key_len + 1 + value_len + 1) * sizeof(char));
     if (new_value == NULL)
         return;
-    ft_strcpy(new_value, var);
+    ft_memset(new_value, 0, (key_len + 1 + value_len + 1) * sizeof(char));
+
+    ft_strcpy(new_value, key);
+    printf("new value befor cat : %s\n", new_value);
     ft_strcat(new_value, "=");
-    ft_strcat(new_value, cwd);
+    ft_strcat(new_value, value);
     while (env[i])
     {
-        if (ft_strncmp(env[i], var, var_len) == 0 && env[i][var_len] == '=')
+        if (ft_strncmp(env[i], key, key_len) == 0 && env[i][key_len] == '=')
         {
             free(env[i]);
             env[i] = new_value;
-    		printf("size of  var set : %ld\n", ft_strlen(var));
-            printf("env var set : %s\n", env[i]);
+    		printf("size of  key set : %ld\n", ft_strlen(key));
+            printf("env key set : %s\n", env[i]);
             return ;
         }
         i++;
     }
     env[i] = new_value;
-    env[i + 1] = NULL; // Ensure the env array is null-terminated
+    env[i + 1] = NULL;
     printf("size of  var added : %ld\n", ft_strlen(env[i]));
     printf("env var added : %s\n", env[i]);
 }
 
+int ft_unset(char *var, t_table *env)
+{
+    int i;
+    int j;
+    int var_len;
 
+    i = 0;
+    j = 0;
+    var_len =  ft_strlen(var);
+    
+    while (env->tab[i])
+    {
+        if (ft_strncmp(env->tab[i], var, var_len) == 0)
+        {
+            free(env->tab[i]);
+            j = i;
+            while (env->tab[j])
+            {
+                env->tab[j] = env->tab[j + 1];
+                j++;
+            }
+            env->size--;
+    		printf("size of  key : %ld\n", ft_strlen(var));
+            printf("env var set : %s\n", env->tab[i]);
+            return (1);
+        }
+        i++;
+    }
+    env->tab[i + 1] = NULL; 
+    printf("size of  key added : %ld\n", ft_strlen(env->tab[i]));
+    printf("env var added : %s\n", env->tab[i]);
+    return (0);
+}
 //ft_strncmp(var, ft_strlem(var)(+1?), env[i])
 
 int ft_cd(char **args, char **env)
@@ -165,35 +199,28 @@ int ft_cd(char **args, char **env)
     if (!args[1] || ft_strcmp(args[1], "~") == 0)
     {
         if (ft_getenv("HOME", env, &home) != 0)
-        {
-            ft_putstr_fd("cd: HOME not set\n", 2);
-            return (-1);
-        }
+            return (ft_putstr_fd("cd: HOME not set\n", 2), -1);
         new_dir = home;
     }
     else if (ft_strcmp(args[1], "-") == 0)
     {
         if (ft_getenv("OLDPWD", env, &oldpwd) != 0)
-        {
-            ft_putstr_fd("cd: OLDPWD not set\n", 2);
-            return (-1);
-        }
+            return (ft_putstr_fd("cd: OLDPWD not set\n", 2), -1);
         new_dir = oldpwd;
     }
+    //  ft_strncmp;
 	else if (ft_strcmp(args[1], "..") == 0)
 		new_dir = "..";
     else
         new_dir = args[1];
     if (chdir(new_dir) != 0)
-    {
-        perror("cd");
-        free(home);
-        free(oldpwd);
-        return (-1);
-    }
+        return (perror("cd"), free(home), free(oldpwd), -1);
 	set_env("OLDPWD", temp, env);
 	temp = getcwd(cwd, sizeof(cwd) * sizeof(char));
-	set_env("PWD", temp, env);
+    if (temp != NULL)
+	    set_env("PWD", temp, env);
+    else
+        perror("getcwd");
 	free(home);
     free(oldpwd);
     return 0;
