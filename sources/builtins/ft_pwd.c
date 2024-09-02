@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:28:16 by jedusser          #+#    #+#             */
-/*   Updated: 2024/08/28 11:51:46 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:33:02 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ int	ft_pwd(t_data *data)
 		else
 		{
 			ft_putstr_fd("pwd: error retrieving current directory\n", 2);
-			data->exit_status = 1;
 			return (1);
 		}
 	}
-	data->exit_status = 0;
 	return (0);
 }

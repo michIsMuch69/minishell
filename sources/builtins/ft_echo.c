@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:17:03 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/02 07:32:29 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:31:40 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	ft_echo(t_data *data)
 	{
 		if (ft_getenv("HOME", data->env.tab, &tmp1) == 0)
 			return (ft_printf("cd %s\n", tmp1), free(tmp1), 0);
+		else
+			return (1);
 	}
 	while (data->args.tab[i] && ft_strcmp(data->args.tab[i], "-n") == 0)
 	{

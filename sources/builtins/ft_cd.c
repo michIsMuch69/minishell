@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:54 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/02 15:06:17 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:24:43 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,5 @@ int	ft_cd(t_data *data, int i)
 	if (new_dir != data[i].args.tab[1])
 		free(new_dir);
 	free(old_pwd);
-	data->exit_status = 0;
-	return (data->exit_status);
+	return (0);
 }

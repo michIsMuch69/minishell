@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:27:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/02 15:06:47 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:01:57 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,19 @@ void	ft_unset_env(t_data *data)
 	while (i < data->args.size)
 	{
 		j = 0;
-		while (data->env.tab[j])
+		while (j < data->env.size)
 		{
-			if (ft_strncmp(data->env.tab[j], data->args.tab[i], \
-			ft_strlen(data->args.tab[i])) == 0)
+			if (ft_strncmp(data->env.tab[j], data->args.tab[i],
+					ft_strlen(data->args.tab[i])) == 0)
 			{
 				free(data->env.tab[j]);
-				j--;
-				while (data->env.tab[j++])
+				while (j < data->env.size - 1)
+				{
 					data->env.tab[j] = data->env.tab[j + 1];
+					j++;
+				}
 				data->env.size--;
-				data->env.tab[j] = NULL;
+				data->env.tab[data->env.size] = NULL;
 				break ;
 			}
 			j++;
@@ -40,32 +42,34 @@ void	ft_unset_env(t_data *data)
 	}
 }
 
-void	ft_unset_export(t_data *data)
+void ft_unset_export(t_data *data)
 {
-	int	i;
-	int	j;
+    int	i;
+    int	j;
 
-	i = 0;
-	while (i < data->args.size)
-	{
-		j = 0;
-		while (data->export.tab[j])
-		{
-			if (ft_strncmp(data->export.tab[j], data->args.tab[i], \
-			ft_strlen(data->args.tab[i])) == 0)
-			{
-				free(data->export.tab[j]);
-				j--;
-				while (data->export.tab[j++])
-					data->export.tab[j] = data->export.tab[j + 1];
-				data->export.size--;
-				data->export.tab[j] = NULL;
-				break ;
-			}
-			j++;
-		}
-		i++;
-	}
+    i = 0;
+    while (i < data->args.size)
+    {
+        j = 0;
+        while (j < data->export.size)
+        {
+            if (ft_strncmp(data->export.tab[j], data->args.tab[i],
+                    ft_strlen(data->args.tab[i])) == 0)
+            {
+                free(data->export.tab[j]);
+                while (j < data->export.size - 1)
+                {
+                    data->export.tab[j] = data->export.tab[j + 1];
+                    j++;
+                }
+                data->export.size--;
+                data->export.tab[data->export.size] = NULL;
+                break;
+            }
+            j++;
+        }
+        i++;
+    }
 }
 
 int	ft_unset(t_data *data, int i)
