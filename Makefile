@@ -6,7 +6,7 @@
 #    By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 11:07:17 by fberthou          #+#    #+#              #
-#    Updated: 2024/09/02 15:04:20 by jedusser         ###   ########.fr        #
+#    Updated: 2024/09/03 09:47:24 by jedusser         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ BUILD_INIT_EXEC_PATH	= $(BUILD_EXEC_PATH)/init_exec
 
 # --- COMPILATION FLAGS --- #
 LIB_FLAGS	=	-I$(LIBFT_HDR_PATH)
-COMPFLAGS	=	-I$(HDR_PATH) $(LIB_FLAGS) -g3 #-Wall -Wextra -Werror
+COMPFLAGS	=	-I$(HDR_PATH) $(LIB_FLAGS) -g3 -Wall -Wextra -Werror
 
 SRC		=	$(MAIN_PATH)/main.c $(MAIN_PATH)/utils.c $(MAIN_PATH)/sig_manager.c \
 			$(MAIN_PATH)/init_mini_env.c \

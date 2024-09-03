@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:58:11 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/03 08:47:39 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:01:40 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,13 @@ int	main(int argc, char **argv, char **envp)
 	data = init_data(envp);
 	if (!data)
 		return (1);
+	// FILE* fd;
+	// fd = fopen("../menfou", "a");
+	// rl_outstream = fd;
 	while (1)
 	{
+		// if (isatty(fileno(stdin)))
+		// 	data->prompt = readline(" ");
 		data->prompt = readline("mini$hell> ");
 		if (!data->prompt)
 			return (free_struct(data, 1), exit(EXIT_SUCCESS), 0);
