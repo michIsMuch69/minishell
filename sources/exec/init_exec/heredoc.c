@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:50:56 by florian           #+#    #+#             */
-/*   Updated: 2024/08/27 10:41:42 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:50:22 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	heredoc_loop(int fd2, char *token)
 		prompt = readline("> ");
 		if (!prompt)
 			return (free(delimiter), close(fd2), 0);
-		if (ft_strncmp(prompt, delimiter, ft_strlen(prompt)) == 0)
+		if (ft_strcmp(prompt, delimiter) == 0)
 			break ;
 		if (ft_putstr_fd(prompt, fd2) == -1 || \
 			ft_putstr_fd("\n", fd2) == -1)

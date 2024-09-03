@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/31 15:17:03 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/02 15:31:40 by jedusser         ###   ########.fr       */
+/*   Created: 2024/09/03 15:02:51 by jedusser          #+#    #+#             */
+/*   Updated: 2024/09/03 15:24:50 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,37 @@ int	ft_echo_print(t_data *data, int i)
 	while (data->args.tab[i])
 	{
 		printf("%s", data->args.tab[i]);
-		if (data->args.tab[i + 1])
+		if (data->args.tab[i][0] != '\0' && data->args.tab[i + 1])
 			printf(" ");
 		i++;
 	}
 	return (0);
 }
 
+int	only_n(char *str)
+{
+	int	i;
+
+	if (!str || str[0] == '\0' || str[0] != '-')
+		return (0);
+	i = 1;
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	ft_echo(t_data *data)
 {
-	int		flag;
-	int		i;
-	char	*tmp1;
+	int	flag;
+	int	i;
 
 	flag = 0;
 	i = 1;
-	if (ft_strcmp(data->args.tab[1], "cd") == 0 && \
-		ft_strcmp(data->args.tab[2], "~") == 0)
-	{
-		if (ft_getenv("HOME", data->env.tab, &tmp1) == 0)
-			return (ft_printf("cd %s\n", tmp1), free(tmp1), 0);
-		else
-			return (1);
-	}
-	while (data->args.tab[i] && ft_strcmp(data->args.tab[i], "-n") == 0)
+	while (data->args.tab[i] && only_n(data->args.tab[i]))
 	{
 		flag = 1;
 		i++;
