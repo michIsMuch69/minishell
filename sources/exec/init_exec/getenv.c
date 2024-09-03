@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:03:17 by fberthou          #+#    #+#             */
-/*   Updated: 2024/09/02 15:31:26 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:43:53 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_getenv(char *word, char **env, char **var_content)
 	if (!tmp)
 	{
 		*var_content = NULL;
-		return (ft_putstr_fd("var not found in env\n", 2), 1);
+		return (1);
 	}
 	return (extract_value(tmp, word, var_content));
 }
