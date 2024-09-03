@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 07:33:24 by fberthou          #+#    #+#             */
-/*   Updated: 2024/09/02 11:11:38 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/03 09:29:50 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include <stdio.h>
+
+int	init_sighandler(t_data *data);
 
 /*
 	#### parse_prompt description ####
@@ -45,6 +47,7 @@ int	parse_prompt(t_data **data)
 	if (!tokens.tab)
 		return (0);
 	tab_size = init_struct(data, &tokens, 0, 0);
+	init_sighandler(*data);
 	if (tab_size == -1)
 		return (free_tab(&tokens, 0), 0);
 	free_tab(&tokens, 0);
