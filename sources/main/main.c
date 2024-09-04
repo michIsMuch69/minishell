@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:58:11 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/03 12:23:12 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/04 11:33:28 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,18 @@ static t_data	*init_data(char **envp)
 	return (data);
 }
 
+void	add_to_history_if_valid(char *line)
+{
+	if (line[0] != '\0')
+		add_history(line);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 	int		tab_size;
 
-	(void) argv;
+	(void)argv;
 	if (argc != 1)
 		return (ft_perror("arguments are invalid\n"), 1);
 	data = init_data(envp);
@@ -82,7 +88,7 @@ int	main(int argc, char **argv, char **envp)
 		data->prompt = readline("mini$hell> ");
 		if (!data->prompt)
 			return (free_struct(data, 1), exit(EXIT_SUCCESS), 0);
-		add_history(data->prompt);
+		add_to_history_if_valid(data->prompt);
 		tab_size = parse_prompt(&data);
 		if (tab_size == -1)
 			return (free_struct(data, 1), 1);
