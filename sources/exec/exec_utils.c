@@ -6,13 +6,13 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 08:59:06 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/03 09:34:48 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/04 11:19:30 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	init_sighandler(t_data *data);
+void	maj_exit_status(t_data *data);
 
 int	wait_all(t_data *data, int tab_size, int pid, int **fd)
 {
@@ -25,12 +25,7 @@ int	wait_all(t_data *data, int tab_size, int pid, int **fd)
 		return (perror("wait_all waitpid() "), -1);
 	}
 	tab_size--;
-	if (WIFEXITED(data[0].exit_status))
-		data[0].exit_status = WEXITSTATUS(data[0].exit_status);
-	else if (WIFSIGNALED(data[0].exit_status))
-		data[0].exit_status = WTERMSIG(data[0].exit_status);
-	else
-		data[0].exit_status = -1;
+	maj_exit_status(data);
 	while (i < tab_size)
 	{
 		if (wait(NULL) == -1)
