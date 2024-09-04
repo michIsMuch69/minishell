@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:50:56 by florian           #+#    #+#             */
-/*   Updated: 2024/09/04 10:35:10 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/04 10:53:56 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,7 @@ static int	big_loop(t_data *data, int *interrupted)
 			if (fd2 == -1)
 				return (-1);
 			if (fd2 == -2)
-			{
-				hdocs_i++;
-				return (-1);
-			}
+				return (hdocs_i++, -1);
 			if (heredoc_loop(fd2, data->input.tab[input_i], interrupted) == -1)
 				return (hdocs_i++, -1);
 			hdocs_i++;
@@ -130,6 +127,7 @@ int	heredoc_management(t_data *data, int tab_size)
 	int	i;
 
 	i = 0;
+	data[0].tab_size = tab_size;
 	init_sig_hdoc(&interrupted);
 	while (i < tab_size)
 	{
@@ -140,5 +138,5 @@ int	heredoc_management(t_data *data, int tab_size)
 			return (-1);
 		i++;
 	}
-	return (0);
+	return (interrupted);
 }

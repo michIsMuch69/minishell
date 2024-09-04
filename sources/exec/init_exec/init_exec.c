@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 13:15:17 by florian           #+#    #+#             */
-/*   Updated: 2024/08/29 11:31:51 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/04 10:39:23 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,11 @@ int	init_exec(t_data *data, int tab_size)
 	int	i;
 	int	exit_stat;
 
-	if (heredoc_management(data, tab_size) == -1)
+	exit_stat = heredoc_management(data, tab_size);
+	if (exit_stat == -1)
 		return (1);
+	else if (exit_stat == 130)
+		return (130);
 	i = 0;
 	while (i < tab_size)
 	{
