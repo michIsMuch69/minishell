@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:58:11 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/04 14:04:49 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:13:04 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ void	add_to_history_if_valid(char *line)
 		add_history(line);
 }
 
+void	clean_exit(t_data *data)
+{
+	free_struct(data, 1);
+	ft_printf("exit\n");
+	exit(EXIT_SUCCESS);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
@@ -78,18 +85,12 @@ int	main(int argc, char **argv, char **envp)
 	data = init_data(envp);
 	if (!data)
 		return (1);
-	// FILE* fd;
-	// fd = fopen("../menfou", "a");
-	// rl_outstream = fd;
 	while (1)
 	{
-		// if (isatty(fileno(stdin)))
-		// 	data->prompt = readline(" ");
 		data->prompt = readline("mini$hell> ");
 		if (!data->prompt)
-			return (free_struct(data, 1), exit(EXIT_SUCCESS), 0);
-		//add_to_history_if_valid(data->prompt);
-		add_history(data->prompt);
+			return (clean_exit(data), 0);
+		add_to_history_if_valid(data->prompt);
 		tab_size = parse_prompt(&data);
 		if (tab_size == -1)
 			return (free_struct(data, 1), 1);
