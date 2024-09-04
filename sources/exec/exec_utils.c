@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 08:59:06 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/04 11:19:30 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:39:13 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	wait_all(t_data *data, int tab_size, int pid, int **fd)
 	int	i;
 
 	i = 0;
+	signal(SIGINT, SIG_IGN);
 	if (waitpid(pid, &(data[0].exit_status), 0) == -1)
 	{
 		free_pipes(fd, data[0].tab_size - 1);

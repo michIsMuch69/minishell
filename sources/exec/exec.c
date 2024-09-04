@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/04 11:25:40 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:39:03 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	close_in_out_files(t_data *data)
 
 static int	parent_routine(t_data *data, int i, int **fd, int *last_read)
 {
-	signal(SIGINT, SIG_IGN);
 	if (i == 0)
 	{
 		if (close(fd[i][1]) == -1)

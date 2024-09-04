@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:04:55 by fberthou          #+#    #+#             */
-/*   Updated: 2024/08/29 11:14:06 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:37:31 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	init_sighandler(t_data *data);
 
 void	maj_exit_status(t_data *data)
 {
-	init_sighandler(data);
 	if (WIFEXITED(data[0].exit_status))
 	{
 		if (WEXITSTATUS(data[0].exit_status) == 13)
@@ -36,7 +35,10 @@ void	maj_exit_status(t_data *data)
 			write(2, "Quit (core dumped)\n", 20);
 		}
 		else if (WTERMSIG(data[0].exit_status) == SIGINT)
+		{
+			data[0].exit_status = 130;
 			write(1, "\n", 1);
+		}
 		else
 			data[0].exit_status = WTERMSIG(data[0].exit_status);
 	}

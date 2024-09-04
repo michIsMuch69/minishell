@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:27:19 by fberthou          #+#    #+#             */
-/*   Updated: 2024/09/04 12:14:57 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:22:02 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	find_end_var(char *token, int i)
 {
 	while (token[i])
 	{
-		if (!ft_isalpha(token[i]) && token[i] != '_')
+		if (!ft_isalpha(token[i]) && token[i] != '_' && token[i] != '?')
 			return (i);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:21:37 by florian           #+#    #+#             */
-/*   Updated: 2024/08/28 15:12:45 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:38:24 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	child_routine(t_data *data, int i, int **fd, int last_read)
 	int	tab_size;
 
 	tab_size = data[i].tab_size;
-	init_child_sig(data);
 	if (is_builtin(&data[i]))
 		exec_builtin_child(data, i, fd, last_read);
 	manage_redirection(data, i, fd, last_read);
@@ -88,5 +87,5 @@ int	child_routine(t_data *data, int i, int **fd, int last_read)
 		i++;
 	}
 	free_pipes(fd, data->tab_size - 1);
-	return (0);
+	return (init_child_sig(data));
 }
