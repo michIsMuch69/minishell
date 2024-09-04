@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:02:51 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/03 15:24:50 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:29:30 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ int	only_n(char *str)
 {
 	int	i;
 
-	if (!str || str[0] == '\0' || str[0] != '-')
+	if (!str || str[0] != '-')
 		return (0);
 	i = 1;
+	if (str[i] == '\0')
+		return (0);
 	while (str[i])
 	{
 		if (str[i] != 'n')

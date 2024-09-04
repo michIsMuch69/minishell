@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:46:39 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/04 13:39:03 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:15:32 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	exec_one(t_data *data);
-int	child_routine(t_data *data, int i, int **fd, int last_fd);
+int			exec_one(t_data *data);
+int			child_routine(t_data *data, int i, int **fd, int last_fd);
 
 int	close_in_out_files(t_data *data)
 {
@@ -90,11 +90,13 @@ void	exec(int tab_size, t_data *data)
 {
 	int	**pipe_fd;
 	int	i;
+	int	ret_value;
 
 	i = 0;
-	data[0].exit_status = init_exec(data, tab_size);
-	if (data[0].exit_status)
+	ret_value = init_exec(data, tab_size);
+	if (ret_value)
 	{
+		data[0].exit_status = ret_value;
 		while (i < tab_size)
 		{
 			close_in_out_files(&data[i]);

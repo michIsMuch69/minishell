@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:58:11 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/04 11:33:28 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:04:49 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int	main(int argc, char **argv, char **envp)
 		data->prompt = readline("mini$hell> ");
 		if (!data->prompt)
 			return (free_struct(data, 1), exit(EXIT_SUCCESS), 0);
-		add_to_history_if_valid(data->prompt);
+		//add_to_history_if_valid(data->prompt);
+		add_history(data->prompt);
 		tab_size = parse_prompt(&data);
 		if (tab_size == -1)
 			return (free_struct(data, 1), 1);

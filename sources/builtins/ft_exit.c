@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:31:28 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/02 08:29:26 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:15:34 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ int	ft_exit(t_data *data, int i, int **fds, int last_fd)
 	arg = 0;
 	should_exit = 1;
 	ft_putstr_fd("exit\n", 2);
-	arg = process_exit_args(data, i, &should_exit);
+	if (data[i].args.size == 1)
+		arg = data[0].exit_status;
+	else
+		arg = process_exit_args(data, i, &should_exit);
 	if (should_exit)
 	{
 		ft_exit_close_fds(data, i, fds, last_fd);
