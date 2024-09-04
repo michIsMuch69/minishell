@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:50:56 by florian           #+#    #+#             */
-/*   Updated: 2024/09/04 10:53:56 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:15:57 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ static int	big_loop(t_data *data, int *interrupted)
 	}
 	return (hdocs_i);
 }
-
 
 static int	init_heredocs(t_data *data)
 {

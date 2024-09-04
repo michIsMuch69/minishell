@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:27:19 by fberthou          #+#    #+#             */
-/*   Updated: 2024/08/28 16:33:32 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:14:57 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int	find_end_var(char *token, int i)
 {
 	while (token[i])
 	{
-		if (token[i] == 9 || token[i] == 32 || token[i] == '\"' || \
-			token[i] == '$' || token[i] == '\'' || token[i] == '/')
+		if (!ft_isalpha(token[i]) && token[i] != '_')
 			return (i);
 		i++;
 	}

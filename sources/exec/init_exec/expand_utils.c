@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:11 by fberthou          #+#    #+#             */
-/*   Updated: 2024/09/03 11:03:13 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:03:29 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	change_value(char **token, int *i, char **envp, int last_exit)
 		return (-1);
 	if (ft_strncmp(word, "?", ft_strlen(word)) == 0)
 		return (free(word), cut_str(token, *i, i_end, ft_itoa(last_exit)));
-	if (!word[0] && token[0][i_end - 1] != '$')
+	if (!word[0])
 		return (free(word), manage_empty_var(token, *i, i_end));
 	else if (!word[0] && token[0][i_end - 1] == '$')
 		return (free(word), 0);
