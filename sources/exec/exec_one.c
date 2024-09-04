@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:04:55 by fberthou          #+#    #+#             */
-/*   Updated: 2024/09/04 13:37:31 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:43:23 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 
 int	init_child_sig(t_data *data);
 int	init_sighandler(t_data *data);
+
+void	manage_sig(t_data *data)
+{
+	if (WTERMSIG(data[0].exit_status) == SIGQUIT)
+	{
+		data[0].exit_status = 131;
+		write(2, "Quit (core dumped)\n", 20);
+	}
+	else if (WTERMSIG(data[0].exit_status) == SIGINT)
+	{
+		data[0].exit_status = 130;
+		write(1, "\n", 1);
+	}
+	else
+		data[0].exit_status = WTERMSIG(data[0].exit_status);
+}
 
 void	maj_exit_status(t_data *data)
 {
@@ -28,20 +44,7 @@ void	maj_exit_status(t_data *data)
 			data[0].exit_status = WEXITSTATUS(data[0].exit_status);
 	}
 	else if (WIFSIGNALED(data[0].exit_status))
-	{
-		if (WTERMSIG(data[0].exit_status) == SIGQUIT)
-		{
-			data[0].exit_status = 131;
-			write(2, "Quit (core dumped)\n", 20);
-		}
-		else if (WTERMSIG(data[0].exit_status) == SIGINT)
-		{
-			data[0].exit_status = 130;
-			write(1, "\n", 1);
-		}
-		else
-			data[0].exit_status = WTERMSIG(data[0].exit_status);
-	}
+		manage_sig(data);
 	else
 		data[0].exit_status = -1;
 }
