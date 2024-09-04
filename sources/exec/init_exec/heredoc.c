@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:50:56 by florian           #+#    #+#             */
-/*   Updated: 2024/09/03 15:50:22 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/04 10:35:10 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <exec.h>
 
-char		*clean_delimiter(char *delimiter);
+char	*clean_delimiter(char *delimiter);
+void	init_sig_hdoc(int *interrupted);
 
-static int	heredoc_loop(int fd2, char *token)
+static int	heredoc_loop(int fd2, char *token, int *interrupted)
 {
 	char	*delimiter;
 	char	*prompt;
@@ -25,8 +26,8 @@ static int	heredoc_loop(int fd2, char *token)
 	while (1)
 	{
 		prompt = readline("> ");
-		if (!prompt)
-			return (free(delimiter), close(fd2), 0);
+		if (!prompt || *interrupted)
+			return (free(delimiter), close(fd2), *interrupted);
 		if (ft_strcmp(prompt, delimiter) == 0)
 			break ;
 		if (ft_putstr_fd(prompt, fd2) == -1 || \
@@ -65,7 +66,7 @@ static int	new_tmp_file(t_table heredoc, int hdocs_i)
 	return (fd2);
 }
 
-static int	big_loop(t_data *data)
+static int	big_loop(t_data *data, int *interrupted)
 {
 	int	input_i;
 	int	hdocs_i;
@@ -85,7 +86,7 @@ static int	big_loop(t_data *data)
 				hdocs_i++;
 				return (-1);
 			}
-			if (heredoc_loop(fd2, data->input.tab[input_i]) == -1)
+			if (heredoc_loop(fd2, data->input.tab[input_i], interrupted) == -1)
 				return (hdocs_i++, -1);
 			hdocs_i++;
 		}
@@ -93,6 +94,7 @@ static int	big_loop(t_data *data)
 	}
 	return (hdocs_i);
 }
+
 
 static int	init_heredocs(t_data *data)
 {
@@ -124,15 +126,17 @@ static int	init_heredocs(t_data *data)
 int	heredoc_management(t_data *data, int tab_size)
 {
 	int	ret_value;
+	int	interrupted;
 	int	i;
 
 	i = 0;
+	init_sig_hdoc(&interrupted);
 	while (i < tab_size)
 	{
 		ret_value = init_heredocs(&(data[i]));
 		if (ret_value == -1)
 			return (ret_value);
-		if (big_loop(&(data[i])) == -1)
+		if (big_loop(&(data[i]), &interrupted) == -1)
 			return (-1);
 		i++;
 	}

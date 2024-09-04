@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+         #
+#    By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 11:07:17 by fberthou          #+#    #+#              #
-#    Updated: 2024/09/03 11:09:36 by jedusser         ###   ########.fr        #
+#    Updated: 2024/09/04 10:31:17 by fberthou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ LIB_FLAGS	=	-I$(LIBFT_HDR_PATH)
 COMPFLAGS	=	-I$(HDR_PATH) $(LIB_FLAGS) -g3 -Wall -Wextra -Werror
 
 SRC		=	$(MAIN_PATH)/main.c $(MAIN_PATH)/utils.c $(MAIN_PATH)/sig_manager.c \
-			$(MAIN_PATH)/init_mini_env.c \
+			$(MAIN_PATH)/init_mini_env.c $(MAIN_PATH)/sig_hdoc.c \
 			\
 			$(PARSING_PATH)/parsing.c $(PARSING_PATH)/parsing_utils.c \
 			$(PARSING_PATH)/pre_treatment.c \
