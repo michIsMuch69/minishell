@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:42:26 by florian           #+#    #+#             */
-/*   Updated: 2024/08/01 20:47:09 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:33:38 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,27 @@ void	free_pipes(int **tab, int size)
 	free(tab);
 }
 
+static int	**init(int size)
+{
+	int	**tab;
+
+	if (size > 508)
+		return (ft_perror("error -> too much pipes\n"), NULL);
+	tab = malloc(size * sizeof(int *));
+	if (!tab)
+		return (ft_perror("error -> alloc fd\n"), NULL);
+	return (tab);
+}
+
 int	**init_pipe(int size)
 {
 	int	i;
 	int	**pipe_tab;
 
 	i = -1;
-	pipe_tab = malloc(size * sizeof(int *));
+	pipe_tab = init(size);
 	if (!pipe_tab)
-		return (ft_perror("error -> alloc fd\n"), NULL);
+		return (NULL);
 	while (++i < size)
 	{
 		pipe_tab[i] = malloc(2 * sizeof(int));
