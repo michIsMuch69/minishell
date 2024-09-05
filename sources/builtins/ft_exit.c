@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:31:28 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/04 15:15:34 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/09/05 09:44:08 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ int	ft_exit(t_data *data, int i, int **fds, int last_fd)
 		if (fds != NULL && data->tab_size > 1)
 			free_pipes(fds, data->tab_size - 1);
 		free_struct(data, data[i].tab_size);
+		rl_clear_history();
 		exit(arg);
 	}
+	rl_clear_history();
 	return (arg);
 }

@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 08:59:06 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/04 13:39:13 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/05 09:47:46 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	wait_all(t_data *data, int tab_size, int pid, int **fd)
 		return (perror("wait_all waitpid() "), -1);
 	}
 	tab_size--;
-	maj_exit_status(data);
 	while (i < tab_size)
 	{
 		if (wait(NULL) == -1)
 			return (perror("wait_all wait() "), -1);
 		i++;
 	}
+	maj_exit_status(data);
 	free_pipes(fd, data[0].tab_size - 1);
 	return (0);
 }

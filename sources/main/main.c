@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:58:11 by jedusser          #+#    #+#             */
-/*   Updated: 2024/09/04 17:13:04 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/09/05 09:43:38 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,13 @@ void	add_to_history_if_valid(char *line)
 
 void	clean_exit(t_data *data)
 {
+	int	last_exit;
+
+	last_exit = data->exit_status;
+	rl_clear_history();
 	free_struct(data, 1);
 	ft_printf("exit\n");
-	exit(EXIT_SUCCESS);
+	exit(last_exit);
 }
 
 int	main(int argc, char **argv, char **envp)
